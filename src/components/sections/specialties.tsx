@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import {
   Eye,
   Hexagon,
@@ -55,13 +54,18 @@ export function Specialties() {
                 transition={{ duration: 10, ease: "easeOut" }}
                 className="vignette-corner absolute inset-0"
               >
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  sizes="100vw"
-                  className="object-cover"
-                />
+                <video
+                  className="h-full w-full object-cover"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  poster={item.image}
+                  aria-hidden
+                >
+                  <source src={item.video} type="video/mp4" />
+                </video>
               </motion.div>
 
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/35 to-transparent" />
