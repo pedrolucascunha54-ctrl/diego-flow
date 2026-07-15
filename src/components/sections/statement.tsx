@@ -9,7 +9,7 @@ const VIDEO_FPS = 24;
 // how much of the section's scroll range it takes for the mask to clear —
 // kept tiny so the video's own baked-in animation takes over almost
 // immediately once the user starts scrolling
-const MASK_CLEAR_BY = 0.04;
+const MASK_CLEAR_BY = 0.01;
 
 export function Statement() {
   const sectionRef = useRef<HTMLElement>(null);
