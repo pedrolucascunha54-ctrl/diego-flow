@@ -1,31 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
-import {
-  Eye,
-  Hexagon,
-  Shield,
-  RefreshCw,
-  PenLine,
-  Cross,
-  Landmark,
-  Zap,
-  type LucideIcon,
-} from "lucide-react";
-import { SPECIALTIES } from "@/lib/content";
+import { SPECIALTY_REELS } from "@/lib/content";
 import { SectionLabel } from "@/components/ui/section-label";
 import { RevealText } from "@/components/ui/reveal-text";
-
-const ICONS: LucideIcon[] = [
-  Eye,
-  Hexagon,
-  Shield,
-  RefreshCw,
-  PenLine,
-  Cross,
-  Landmark,
-  Zap,
-];
 
 export function Specialties() {
   return (
@@ -39,55 +16,26 @@ export function Specialties() {
         />
       </div>
 
-      {SPECIALTIES.map((item, i) => {
-        const Icon = ICONS[i];
-        return (
-          // taller than the viewport so the sticky card gets a stable dwell
-          // period before the next card starts sliding up to cover it —
-          // a same-height sticky stack has zero dwell and instantly clips
-          <div key={item.title} className="relative h-[170dvh]">
-            <div className="sticky top-0 flex h-[100dvh] w-full items-end overflow-hidden">
-              <motion.div
-                initial={{ scale: 1 }}
-                whileInView={{ scale: 1.08 }}
-                viewport={{ once: true }}
-                transition={{ duration: 10, ease: "easeOut" }}
-                className="vignette-corner absolute inset-0"
-              >
-                <video
-                  className="h-full w-full object-cover"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="auto"
-                  poster={item.image}
-                  aria-hidden
-                >
-                  <source src={item.video} type="video/mp4" />
-                </video>
-              </motion.div>
-
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/35 to-transparent" />
-
-              <div className="relative z-10 w-full px-5 pb-14 sm:max-w-md sm:px-8 sm:pb-20">
-                <span className="font-mono text-sm text-gold/70">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <div className="mt-3 flex h-11 w-11 items-center justify-center rounded-full border border-border text-gold">
-                  <Icon className="h-5 w-5" strokeWidth={1.5} />
-                </div>
-                <h3 className="mt-4 font-display text-3xl italic text-foreground sm:text-4xl">
-                  {item.title}
-                </h3>
-                <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted sm:text-base">
-                  {item.description}
-                </p>
-              </div>
-            </div>
+      {SPECIALTY_REELS.map((reel) => (
+        // taller than the viewport so the sticky card gets a stable dwell
+        // period before the next card starts sliding up to cover it —
+        // a same-height sticky stack has zero dwell and instantly clips
+        <div key={reel.video} className="relative h-[170dvh]">
+          <div className="vignette-corner sticky top-0 h-[100dvh] w-full overflow-hidden">
+            <video
+              className="h-full w-full object-cover object-left"
+              autoPlay
+              muted
+              playsInline
+              preload="auto"
+              poster={reel.poster}
+              aria-label={reel.covers.join(", ")}
+            >
+              <source src={reel.video} type="video/mp4" />
+            </video>
           </div>
-        );
-      })}
+        </div>
+      ))}
     </section>
   );
 }

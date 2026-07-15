@@ -11,8 +11,6 @@ export const SITE = {
 export type Specialty = {
   title: string;
   description: string;
-  image: string;
-  video: string;
 };
 
 export const SPECIALTIES: Specialty[] = [
@@ -20,57 +18,73 @@ export const SPECIALTIES: Specialty[] = [
     title: "Realismo Preto e Cinza",
     description:
       "Retratos, figuras e composições com riqueza de detalhes e sombras realistas.",
-    image: "/images/specialties/realismo.webp",
-    video: "/video/specialties/realismo.mp4",
   },
   {
     title: "Blackwork",
     description:
       "Cobertura intensa, padrões gráficos e contrastes marcantes.",
-    image: "/images/specialties/blackwork.webp",
-    video: "/video/specialties/blackwork.mp4",
   },
   {
     title: "Fechamentos",
     description:
       "Cobertura total com acabamento uniforme, transformando histórias em novas possibilidades.",
-    image: "/images/specialties/fechamentos.webp",
-    video: "/video/specialties/fechamentos.mp4",
   },
   {
     title: "Cover Up",
     description:
       "Transformamos o que já não te representa em arte que conta uma nova história.",
-    image: "/images/specialties/cover-up.webp",
-    video: "/video/specialties/cover-up.mp4",
   },
   {
     title: "Projetos Exclusivos",
     description:
       "Artes autorais criadas para você, de forma única e personalizada.",
-    image: "/images/specialties/projetos-exclusivos.webp",
-    video: "/video/specialties/projetos-exclusivos.mp4",
   },
   {
     title: "Arte Sacra",
     description:
       "Fé, devoção e espiritualidade eternizadas em traços realistas e imponentes.",
-    image: "/images/specialties/arte-sacra.webp",
-    video: "/video/specialties/arte-sacra.mp4",
   },
   {
     title: "Mitologia",
     description:
       "Deuses, heróis e criaturas lendárias em composições épicas e detalhadas.",
-    image: "/images/specialties/mitologia.webp",
-    video: "/video/specialties/mitologia.mp4",
   },
   {
     title: "Anime Realista",
     description:
       "Personagens marcantes com realismo, profundidade e fidelidade impressionante.",
-    image: "/images/specialties/anime-realista.webp",
-    video: "/video/specialties/anime-realista.mp4",
+  },
+];
+
+// each reel is one of the client's Flow-generated preview clips — the
+// number/icon/title/description are already burned into the footage, so
+// the site just plays it full-bleed instead of overlaying its own text
+export type SpecialtyReel = {
+  video: string;
+  poster: string;
+  covers: string[];
+};
+
+export const SPECIALTY_REELS: SpecialtyReel[] = [
+  {
+    video: "/video/specialties/reel-01.mp4",
+    poster: "/posters/specialties/reel-01.jpg",
+    covers: [SPECIALTIES[0].title],
+  },
+  {
+    video: "/video/specialties/reel-02.mp4",
+    poster: "/posters/specialties/reel-02.jpg",
+    covers: [SPECIALTIES[1].title, SPECIALTIES[2].title],
+  },
+  {
+    video: "/video/specialties/reel-03.mp4",
+    poster: "/posters/specialties/reel-03.jpg",
+    covers: [SPECIALTIES[3].title, SPECIALTIES[4].title],
+  },
+  {
+    video: "/video/specialties/reel-04.mp4",
+    poster: "/posters/specialties/reel-04.jpg",
+    covers: [SPECIALTIES[5].title, SPECIALTIES[6].title, SPECIALTIES[7].title],
   },
 ];
 
