@@ -6,34 +6,22 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const VIDEO_FPS = 24;
 
-// step-reveal thresholds — progress through the section's scroll range at
-// which each block snaps into view, with a short window for the snap itself
-const TITLE_AT = 0.08;
-const SUBTITLE_AT = 0.2;
-const SNAP_WINDOW = 0.04;
-
-// the video's own baked-in text animation is compressed into its first ~0.6s,
-// so we hold the very first frame (full, crisp copy) while our two reveal
-// steps play out, then hand off to the video's real motion for the rest
-const TEXT_HOLD_UNTIL = 0.32;
-
-function stepOpacity(progress: number, revealAt: number) {
-  return 1 - gsap.utils.clamp(0, 1, (progress - revealAt) / SNAP_WINDOW);
-}
+// how much of the section's scroll range it takes for the mask to clear —
+// kept tiny so the video's own baked-in animation takes over almost
+// immediately once the user starts scrolling
+const MASK_CLEAR_BY = 0.04;
 
 export function Statement() {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const titleMaskRef = useRef<HTMLDivElement>(null);
-  const subtitleMaskRef = useRef<HTMLDivElement>(null);
+  const maskRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     const section = sectionRef.current;
     const video = videoRef.current;
-    const titleMask = titleMaskRef.current;
-    const subtitleMask = subtitleMaskRef.current;
-    if (!section || !video || !titleMask || !subtitleMask) return;
+    const mask = maskRef.current;
+    if (!section || !video || !mask) return;
 
     let ready = false;
     let lastFrame = -1;
@@ -60,24 +48,16 @@ export function Statement() {
       scrub: true,
       onUpdate: (self) => {
         if (ready && video.duration) {
-          // hold on frame 0 (full crisp copy) until both reveal steps have
-          // played, then map the rest of the scroll to the rest of the clip
-          const videoProgress =
-            self.progress <= TEXT_HOLD_UNTIL
-              ? 0
-              : (self.progress - TEXT_HOLD_UNTIL) / (1 - TEXT_HOLD_UNTIL);
-
           // only issue a seek when the target frame actually changes —
           // setting currentTime on every scroll tick is what stutters on Android
-          const frame = Math.round(videoProgress * video.duration * VIDEO_FPS);
+          const frame = Math.round(self.progress * video.duration * VIDEO_FPS);
           if (frame !== lastFrame) {
             lastFrame = frame;
             video.currentTime = frame / VIDEO_FPS;
           }
         }
-        titleMask.style.opacity = String(stepOpacity(self.progress, TITLE_AT));
-        subtitleMask.style.opacity = String(
-          stepOpacity(self.progress, SUBTITLE_AT)
+        mask.style.opacity = String(
+          1 - gsap.utils.clamp(0, 1, self.progress / MASK_CLEAR_BY)
         );
       },
     });
@@ -88,16 +68,10 @@ export function Statement() {
     };
   }, []);
 
-  const maskStyle = {
-    background:
-      "linear-gradient(to right, var(--color-background) 0%, var(--color-background) 78%, transparent 100%)",
-    opacity: 1,
-  };
-
   return (
     <section
       ref={sectionRef}
-      className="relative h-[240dvh] bg-primary"
+      className="relative h-[160dvh] bg-primary"
       aria-label="Tattoos que marcam presença"
     >
       <div className="sticky top-0 h-[100dvh] w-full overflow-hidden">
@@ -113,17 +87,15 @@ export function Statement() {
           <source src="/video/lion-statement.mp4" type="video/mp4" />
         </video>
 
-        {/* hides the video's baked-in title until the 1st scroll step */}
+        {/* hides the video's baked-in copy until the user starts scrolling */}
         <div
-          ref={titleMaskRef}
-          className="pointer-events-none absolute inset-x-0 top-0 h-[52%] w-[92%] sm:w-[70%]"
-          style={maskStyle}
-        />
-        {/* hides the video's baked-in body copy until the 2nd scroll step */}
-        <div
-          ref={subtitleMaskRef}
-          className="pointer-events-none absolute inset-x-0 bottom-0 top-[52%] w-[92%] sm:w-[70%]"
-          style={maskStyle}
+          ref={maskRef}
+          className="pointer-events-none absolute inset-y-0 left-0 w-[92%] sm:w-[70%]"
+          style={{
+            background:
+              "linear-gradient(to right, var(--color-background) 0%, var(--color-background) 78%, transparent 100%)",
+            opacity: 1,
+          }}
         />
       </div>
     </section>
