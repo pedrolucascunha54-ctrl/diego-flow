@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // portion of the section's scroll range over which the text mask fully clears
 const REVEAL_END = 0.4;
+const VIDEO_FPS = 24;
 
 export function Statement() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -20,6 +21,7 @@ export function Statement() {
     if (!section || !video || !mask) return;
 
     let ready = false;
+    let lastFrame = -1;
 
     const unlock = () => {
       // iOS Safari only allows currentTime scrubbing after an initial play/pause cycle
@@ -43,7 +45,13 @@ export function Statement() {
       scrub: true,
       onUpdate: (self) => {
         if (ready && video.duration) {
-          video.currentTime = self.progress * video.duration;
+          // only issue a seek when the target frame actually changes —
+          // setting currentTime on every scroll tick is what stutters on Android
+          const frame = Math.round(self.progress * video.duration * VIDEO_FPS);
+          if (frame !== lastFrame) {
+            lastFrame = frame;
+            video.currentTime = frame / VIDEO_FPS;
+          }
         }
         mask.style.opacity = String(
           1 - gsap.utils.clamp(0, 1, self.progress / REVEAL_END)
