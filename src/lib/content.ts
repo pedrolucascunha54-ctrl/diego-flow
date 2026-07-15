@@ -89,21 +89,12 @@ export const PROCESS_STEPS: ProcessStep[] = [
   },
 ];
 
-export type PortfolioAnimation =
-  | "slide-left"
-  | "slide-right"
-  | "fade-up"
-  | "scale-up"
-  | "clip-reveal";
-
 export type PortfolioItem = {
   slug: string;
   title: string;
   category: string;
   index: string;
   image: string;
-  align: "left" | "right";
-  animation: PortfolioAnimation;
 };
 
 export const PORTFOLIO_ITEMS: PortfolioItem[] = [
@@ -113,8 +104,6 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     category: "Realismo Preto e Cinza",
     index: "01",
     image: "/images/portfolio/grito-ancestral.webp",
-    align: "left",
-    animation: "slide-left",
   },
   {
     slug: "arcanjo-miguel",
@@ -122,8 +111,6 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     category: "Mitologia & Arte Sacra",
     index: "02",
     image: "/images/portfolio/arcanjo-miguel.webp",
-    align: "right",
-    animation: "slide-right",
   },
   {
     slug: "justica-interior",
@@ -131,8 +118,6 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     category: "Projeto Exclusivo",
     index: "03",
     image: "/images/portfolio/justica-interior.webp",
-    align: "left",
-    animation: "fade-up",
   },
   {
     slug: "retrato-urbano",
@@ -140,8 +125,6 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     category: "Realismo Preto e Cinza",
     index: "04",
     image: "/images/portfolio/retrato-urbano.webp",
-    align: "right",
-    animation: "scale-up",
   },
   {
     slug: "do-traco-a-obra",
@@ -149,7 +132,5 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     category: "O Processo",
     index: "05",
     image: "/images/portfolio/do-traco-a-obra.webp",
-    align: "left",
-    animation: "clip-reveal",
   },
 ];
