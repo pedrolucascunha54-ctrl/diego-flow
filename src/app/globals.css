@@ -1,26 +1,140 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Brand palette — FLOW TATTOO */
+  --color-background: #090909;
+  --color-surface: #1a1a1a;
+  --color-surface-hover: #232323;
+  --color-primary: #0a0a0a;
+  --color-secondary: #171717;
+  --color-border: #303030;
+  --color-foreground: #f3f0ea;
+  --color-muted: #a8a29e;
+
+  --color-gold: #a67c52;
+  --color-gold-hover: #c49a6c;
+  --color-bronze: #7b5a3f;
+  --color-copper: #8c5b3c;
+  --color-ivory: #f5efe7;
+  --color-beige: #ddd0c3;
+
+  --color-success: #5b8f63;
+  --color-warning: #a87c3a;
+  --color-danger: #8e3a3a;
+
+  /* shadcn semantic mapping onto the FLOW palette */
+  --color-card: var(--color-surface);
+  --color-card-foreground: var(--color-foreground);
+  --color-popover: var(--color-surface);
+  --color-popover-foreground: var(--color-foreground);
+  --color-primary-foreground: var(--color-ivory);
+  --color-secondary-foreground: var(--color-foreground);
+  --color-muted-foreground: var(--color-muted);
+  --color-accent: var(--color-gold);
+  --color-accent-foreground: var(--color-primary);
+  --color-destructive: var(--color-danger);
+  --color-input: var(--color-border);
+  --color-ring: var(--color-gold);
+
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-instrument);
+  --font-mono: var(--font-jetbrains);
+
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-xl: 6px;
+
+  --breakpoint-xs: 22.5rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --background: #090909;
+  --foreground: #f3f0ea;
+  --border: #303030;
+  --radius: 0.25rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+    background: var(--color-background);
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "ss01" 1, "cv01" 1;
+  }
+
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-primary);
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  /* Frosted-glass surface used sparingly — CTA buttons and header, never as text-card wrapping */
+  .glass {
+    background: color-mix(in oklab, var(--color-surface) 55%, transparent);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid color-mix(in oklab, var(--color-ivory) 12%, transparent);
+  }
+
+  .glass-strong {
+    background: color-mix(in oklab, var(--color-background) 97%, transparent);
+    backdrop-filter: blur(32px) saturate(160%);
+    -webkit-backdrop-filter: blur(32px) saturate(160%);
+    border: 1px solid color-mix(in oklab, var(--color-ivory) 10%, transparent);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .vignette-corner::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      120px 90px at 100% 100%,
+      color-mix(in oklab, var(--color-background) 92%, transparent) 0%,
+      transparent 70%
+    );
+  }
+
+  .hairline {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, var(--color-gold) 55%, transparent),
+      transparent
+    );
+    height: 1px;
+  }
+
+  .noise-overlay {
+    position: relative;
+  }
+  .noise-overlay::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
 }
