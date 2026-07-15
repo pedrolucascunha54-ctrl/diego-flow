@@ -11,6 +11,7 @@ export const SITE = {
 export type Specialty = {
   title: string;
   description: string;
+  image: string;
 };
 
 export const SPECIALTIES: Specialty[] = [
@@ -18,41 +19,49 @@ export const SPECIALTIES: Specialty[] = [
     title: "Realismo Preto e Cinza",
     description:
       "Retratos, figuras e composições com riqueza de detalhes e sombras realistas.",
+    image: "/images/specialties/realismo.webp",
   },
   {
     title: "Blackwork",
     description:
       "Cobertura intensa, padrões gráficos e contrastes marcantes.",
+    image: "/images/specialties/blackwork.webp",
   },
   {
     title: "Fechamentos",
     description:
       "Cobertura total com acabamento uniforme, transformando histórias em novas possibilidades.",
+    image: "/images/specialties/fechamentos.webp",
   },
   {
     title: "Cover Up",
     description:
       "Transformamos o que já não te representa em arte que conta uma nova história.",
+    image: "/images/specialties/cover-up.webp",
   },
   {
     title: "Projetos Exclusivos",
     description:
       "Artes autorais criadas para você, de forma única e personalizada.",
+    image: "/images/specialties/projetos-exclusivos.webp",
   },
   {
     title: "Arte Sacra",
     description:
       "Fé, devoção e espiritualidade eternizadas em traços realistas e imponentes.",
+    image: "/images/specialties/arte-sacra.webp",
   },
   {
     title: "Mitologia",
     description:
       "Deuses, heróis e criaturas lendárias em composições épicas e detalhadas.",
+    image: "/images/specialties/mitologia.webp",
   },
   {
     title: "Anime Realista",
     description:
       "Personagens marcantes com realismo, profundidade e fidelidade impressionante.",
+    image: "/images/specialties/anime-realista.webp",
   },
 ];
 
