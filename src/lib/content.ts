@@ -133,4 +133,32 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     index: "05",
     image: "/images/portfolio/do-traco-a-obra.webp",
   },
+  {
+    slug: "atras-da-mascara",
+    title: "Atrás da Máscara",
+    category: "Realismo Preto e Cinza",
+    index: "06",
+    image: "/images/portfolio/atras-da-mascara.webp",
+  },
+  {
+    slug: "retrato-selvagem",
+    title: "Retrato Selvagem",
+    category: "Realismo Preto e Cinza",
+    index: "07",
+    image: "/images/portfolio/retrato-selvagem.webp",
+  },
+  {
+    slug: "medusa",
+    title: "Medusa",
+    category: "Mitologia",
+    index: "08",
+    image: "/images/portfolio/medusa.webp",
+  },
+  {
+    slug: "riso-sombrio",
+    title: "Riso Sombrio",
+    category: "Realismo Preto e Cinza",
+    index: "09",
+    image: "/images/portfolio/riso-sombrio.webp",
+  },
 ];
