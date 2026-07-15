@@ -10,6 +10,10 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
+    // ignore viewport-height changes from the mobile browser's address bar
+    // showing/hiding — otherwise every scroll-driven trigger recalculates
+    // mid-scroll and drifts out of sync with the user's actual position
+    ScrollTrigger.config({ ignoreMobileResize: true });
 
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
