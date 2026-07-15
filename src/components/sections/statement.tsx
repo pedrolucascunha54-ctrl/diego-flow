@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -15,6 +15,30 @@ export function Statement() {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const maskRef = useRef<HTMLDivElement>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    // defer fetching the video until the section is actually approaching —
+    // otherwise it competes with the hero video for the phone's decoder
+    // right at page load, which is what was making the site feel heavy
+    const section = sectionRef.current;
+    if (!section) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "150px 0px" }
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (shouldLoad) videoRef.current?.load();
+  }, [shouldLoad]);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -80,11 +104,13 @@ export function Statement() {
           className="h-full w-full object-cover"
           muted
           playsInline
-          preload="auto"
+          preload="none"
           poster="/posters/lion-statement.jpg"
           aria-hidden
         >
-          <source src="/video/lion-statement.mp4" type="video/mp4" />
+          {shouldLoad && (
+            <source src="/video/lion-statement.mp4" type="video/mp4" />
+          )}
         </video>
 
         {/* hides the video's baked-in copy until the user starts scrolling */}
