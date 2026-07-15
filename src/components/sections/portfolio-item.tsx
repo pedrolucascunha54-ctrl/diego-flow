@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { MediaVideo } from "@/components/ui/media-video";
+import { MediaImage } from "@/components/ui/media-image";
 import { cn } from "@/lib/utils";
 import type { PortfolioItem as PortfolioItemType } from "@/lib/content";
 
@@ -41,9 +41,9 @@ export function PortfolioItem({ item }: { item: PortfolioItemType }) {
         transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
         className="relative aspect-[3/4] w-full overflow-hidden rounded-[var(--radius-xl)] border border-border sm:aspect-[4/5]"
       >
-        <MediaVideo
-          src={item.video}
-          poster={item.poster}
+        <MediaImage
+          src={item.image}
+          alt={`${item.title} — ${item.category}`}
           className="h-full w-full"
         />
       </motion.div>

@@ -60,9 +60,9 @@ export const metadata: Metadata = {
     description: SITE.description,
     images: [
       {
-        url: "/posters/retrato-serpente.jpg",
-        width: 1200,
-        height: 1600,
+        url: "/images/portfolio/grito-ancestral.webp",
+        width: 1400,
+        height: 1750,
         alt: `${SITE.name} — Realismo Preto e Cinza`,
       },
     ],
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${SITE.name} — Tatuagem de Realismo Preto e Cinza`,
     description: SITE.description,
-    images: ["/posters/retrato-serpente.jpg"],
+    images: ["/images/portfolio/grito-ancestral.webp"],
   },
   robots: {
     index: true,
@@ -95,7 +95,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "TattooParlor",
   name: SITE.name,
-  image: `${SITE.url}/posters/retrato-serpente.jpg`,
+  image: `${SITE.url}/images/portfolio/grito-ancestral.webp`,
   description: SITE.description,
   founder: {
     "@type": "Person",

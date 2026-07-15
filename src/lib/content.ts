@@ -101,8 +101,7 @@ export type PortfolioItem = {
   title: string;
   category: string;
   index: string;
-  video: string;
-  poster: string;
+  image: string;
   align: "left" | "right";
   animation: PortfolioAnimation;
 };
@@ -113,8 +112,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     title: "Grito Ancestral",
     category: "Realismo Preto e Cinza",
     index: "01",
-    video: "/video/retrato-serpente.mp4",
-    poster: "/posters/retrato-serpente.jpg",
+    image: "/images/portfolio/grito-ancestral.webp",
     align: "left",
     animation: "slide-left",
   },
@@ -123,8 +121,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     title: "Arcanjo Miguel",
     category: "Mitologia & Arte Sacra",
     index: "02",
-    video: "/video/arcanjo.mp4",
-    poster: "/posters/arcanjo.jpg",
+    image: "/images/portfolio/arcanjo-miguel.webp",
     align: "right",
     animation: "slide-right",
   },
@@ -133,8 +130,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     title: "Justiça Interior",
     category: "Projeto Exclusivo",
     index: "03",
-    video: "/video/justica-interior.mp4",
-    poster: "/posters/justica-interior.jpg",
+    image: "/images/portfolio/justica-interior.webp",
     align: "left",
     animation: "fade-up",
   },
@@ -143,8 +139,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     title: "Retrato Urbano",
     category: "Realismo Preto e Cinza",
     index: "04",
-    video: "/video/realismo-preto-cinza.mp4",
-    poster: "/posters/realismo-preto-cinza.jpg",
+    image: "/images/portfolio/retrato-urbano.webp",
     align: "right",
     animation: "scale-up",
   },
@@ -153,8 +148,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     title: "Do Traço à Obra",
     category: "O Processo",
     index: "05",
-    video: "/video/stencil-fresco.mp4",
-    poster: "/posters/stencil-fresco.jpg",
+    image: "/images/portfolio/do-traco-a-obra.webp",
     align: "left",
     animation: "clip-reveal",
   },
