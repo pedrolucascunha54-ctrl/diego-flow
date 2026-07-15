@@ -1,19 +1,23 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SPECIALTY_REELS, type SpecialtyReel } from "@/lib/content";
 import { SectionLabel } from "@/components/ui/section-label";
 import { RevealText } from "@/components/ui/reveal-text";
 
+const VIDEO_FPS = 24;
+
 function ReelCard({ reel }: { reel: SpecialtyReel }) {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [shouldLoad, setShouldLoad] = useState(false);
 
   useEffect(() => {
     // defer fetching each reel until its card is actually approaching —
     // otherwise all 4 videos fight for the phone's decoder at once on load
-    const el = containerRef.current;
+    const el = wrapperRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -29,29 +33,74 @@ function ReelCard({ reel }: { reel: SpecialtyReel }) {
   }, []);
 
   useEffect(() => {
-    if (!shouldLoad) return;
-    const video = videoRef.current;
-    if (!video) return;
-    video.load();
-    video.play().catch(() => {});
+    if (shouldLoad) videoRef.current?.load();
   }, [shouldLoad]);
 
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    const wrapper = wrapperRef.current;
+    const video = videoRef.current;
+    if (!wrapper || !video) return;
+
+    let ready = false;
+    let lastFrame = -1;
+
+    const unlock = () => {
+      // iOS Safari only allows currentTime scrubbing after an initial play/pause cycle
+      video
+        .play()
+        .then(() => video.pause())
+        .catch(() => {});
+      ready = true;
+    };
+
+    if (video.readyState >= 1) {
+      unlock();
+    } else {
+      video.addEventListener("loadedmetadata", unlock, { once: true });
+    }
+
+    const trigger = ScrollTrigger.create({
+      trigger: wrapper,
+      start: "top top",
+      end: "bottom bottom",
+      scrub: true,
+      onUpdate: (self) => {
+        if (ready && video.duration) {
+          // only issue a seek when the target frame actually changes —
+          // setting currentTime on every scroll tick is what stutters on Android
+          const frame = Math.round(self.progress * video.duration * VIDEO_FPS);
+          if (frame !== lastFrame) {
+            lastFrame = frame;
+            video.currentTime = frame / VIDEO_FPS;
+          }
+        }
+      },
+    });
+
+    return () => {
+      trigger.kill();
+      video.removeEventListener("loadedmetadata", unlock);
+    };
+  }, []);
+
   return (
-    <div
-      ref={containerRef}
-      className="vignette-corner sticky top-0 h-[100dvh] w-full overflow-hidden"
-    >
-      <video
-        ref={videoRef}
-        className="h-full w-full object-cover object-left"
-        muted
-        playsInline
-        preload="none"
-        poster={reel.poster}
-        aria-label={reel.covers.join(", ")}
-      >
-        {shouldLoad && <source src={reel.video} type="video/mp4" />}
-      </video>
+    // taller than the viewport so scrolling through it has room to scrub
+    // the video's own timeline instead of just flashing past it
+    <div ref={wrapperRef} className="relative h-[170dvh]">
+      <div className="vignette-corner sticky top-0 h-[100dvh] w-full overflow-hidden">
+        <video
+          ref={videoRef}
+          className="h-full w-full object-cover object-left"
+          muted
+          playsInline
+          preload="none"
+          poster={reel.poster}
+          aria-label={reel.covers.join(", ")}
+        >
+          {shouldLoad && <source src={reel.video} type="video/mp4" />}
+        </video>
+      </div>
     </div>
   );
 }
@@ -69,12 +118,7 @@ export function Specialties() {
       </div>
 
       {SPECIALTY_REELS.map((reel) => (
-        // taller than the viewport so the sticky card gets a stable dwell
-        // period before the next card starts sliding up to cover it —
-        // a same-height sticky stack has zero dwell and instantly clips
-        <div key={reel.video} className="relative h-[170dvh]">
-          <ReelCard reel={reel} />
-        </div>
+        <ReelCard key={reel.video} reel={reel} />
       ))}
     </section>
   );
