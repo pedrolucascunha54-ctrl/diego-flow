@@ -6,6 +6,10 @@ export const SITE = {
   description:
     "Estúdio especializado em tatuagem de realismo preto e cinza. Projetos exclusivos, técnica apurada e um processo conduzido do primeiro traço à cicatrização.",
   url: "https://flowtattoo.com.br",
+  instagram: "https://www.instagram.com/diego.flowtattoo",
+  address: "R. Comendador José Esteves, 785 - Centro, Lavras - MG, 37200-176",
+  mapsUrl:
+    "https://www.google.com/maps/place/Cond+do+Edif%C3%ADcio+Jo%C3%A3o+Batista+Ribeiro+-+R.+Comendador+Jos%C3%A9+Esteves,+785+-+Centro,+Lavras+-+MG,+37200-176/@-21.2411631,-44.9994724,17z/data=!3m1!4b1!4m6!3m5!1s0x9ffdf4d91cc151:0xe4b3d49457ed50bc!8m2!3d-21.2411681!4d-44.9968975!16s%2Fg%2F1ptyl30bb",
 };
 
 export type Specialty = {

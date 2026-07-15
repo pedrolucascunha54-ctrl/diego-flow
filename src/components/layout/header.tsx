@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { InstagramIcon } from "@/components/ui/instagram-icon";
 import { Logo } from "@/components/ui/logo";
 import { GlassButton } from "@/components/ui/glass-button";
 import { WHATSAPP_DEFAULT_LINK } from "@/lib/whatsapp";
+import { SITE } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
@@ -47,7 +49,16 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="hidden md:block">
+        <div className="hidden items-center gap-5 md:flex">
+          <a
+            href={SITE.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram do Flow Tattoo"
+            className="text-muted transition-colors duration-300 hover:text-gold"
+          >
+            <InstagramIcon className="h-[18px] w-[18px]" strokeWidth={1.5} />
+          </a>
           <GlassButton href={WHATSAPP_DEFAULT_LINK} size="sm">
             Orçamento
           </GlassButton>
@@ -106,8 +117,18 @@ export function Header() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}
-              className="mt-auto mb-10"
+              className="mt-auto mb-10 flex flex-col items-center gap-6"
             >
+              <a
+                href={SITE.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram do Flow Tattoo"
+                onClick={() => setOpen(false)}
+                className="text-muted transition-colors duration-300 hover:text-gold"
+              >
+                <InstagramIcon className="h-6 w-6" strokeWidth={1.5} />
+              </a>
               <GlassButton href={WHATSAPP_DEFAULT_LINK} size="lg" className="w-full">
                 Fazer orçamento
               </GlassButton>

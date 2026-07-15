@@ -1,5 +1,8 @@
+import { MapPin } from "lucide-react";
+import { InstagramIcon } from "@/components/ui/instagram-icon";
 import { Logo } from "@/components/ui/logo";
 import { WHATSAPP_DEFAULT_LINK } from "@/lib/whatsapp";
+import { SITE } from "@/lib/content";
 
 const LINKS = [
   { href: "#portfolio", label: "Portfólio" },
@@ -32,6 +35,15 @@ export function Footer() {
               </a>
             ))}
             <a
+              href={SITE.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.2em] text-gold transition-colors hover:text-gold-hover"
+            >
+              <InstagramIcon className="h-3.5 w-3.5" strokeWidth={1.5} />
+              Instagram
+            </a>
+            <a
               href={WHATSAPP_DEFAULT_LINK}
               target="_blank"
               rel="noopener noreferrer"
@@ -40,6 +52,21 @@ export function Footer() {
               WhatsApp
             </a>
           </nav>
+        </div>
+
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-start gap-2 text-sm text-muted">
+            <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold/70" strokeWidth={1.5} />
+            <span>{SITE.address}</span>
+          </div>
+          <a
+            href={SITE.mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-xs uppercase tracking-[0.2em] text-gold transition-colors hover:text-gold-hover"
+          >
+            Ver no Google Maps
+          </a>
         </div>
 
         <div className="hairline" />
