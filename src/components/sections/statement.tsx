@@ -57,9 +57,7 @@ export function Statement() {
       <video
         ref={videoRef}
         className="h-full w-full object-cover"
-        autoPlay
         muted
-        loop
         playsInline
         preload="none"
         poster="/posters/lion-statement.jpg"
