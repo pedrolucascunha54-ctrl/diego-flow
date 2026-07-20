@@ -18,8 +18,8 @@ export function FinalCta() {
           sizes="100vw"
           className="object-cover object-[center_22%]"
         />
-        <div className="absolute inset-0 bg-background/75" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/55" />
+        <div className="absolute inset-0 bg-background/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/75 via-transparent to-background/45" />
       </div>
 
       <div
