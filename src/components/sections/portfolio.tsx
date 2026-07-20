@@ -53,7 +53,7 @@ export function Portfolio() {
   }, []);
 
   return (
-    <section id="portfolio" className="bg-background py-24 sm:py-32">
+    <section id="portfolio" className="bg-background pb-8 pt-24 sm:pb-12 sm:pt-32">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionLabel>Portfólio</SectionLabel>
       </div>

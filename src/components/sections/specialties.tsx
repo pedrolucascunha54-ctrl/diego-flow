@@ -75,7 +75,7 @@ function ReelCard({ reel }: { reel: SpecialtyReel }) {
 export function Specialties() {
   return (
     <section id="especialidades" className="relative bg-primary">
-      <div className="mx-auto max-w-6xl px-5 pb-16 pt-24 sm:px-8 sm:pb-20 sm:pt-32">
+      <div className="mx-auto max-w-6xl px-5 pb-16 pt-10 sm:px-8 sm:pb-20 sm:pt-14">
         <SectionLabel>Especialidades</SectionLabel>
         <RevealText
           text="Arte, técnica e propósito."
