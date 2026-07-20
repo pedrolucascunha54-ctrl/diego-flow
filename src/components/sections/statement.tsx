@@ -68,23 +68,25 @@ export function Statement() {
   return (
     <section
       ref={sectionRef}
-      className="relative h-[100dvh] bg-primary"
+      className="relative h-[100dvh] overflow-hidden bg-primary"
       aria-label="Tattoos que marcam presença"
     >
-      <video
-        ref={videoRef}
-        className="h-full w-full object-cover"
-        muted
-        playsInline
-        preload="none"
-        poster="/posters/lion-statement.jpg"
-        aria-hidden
-      >
-        {shouldLoad && (
-          <source src="/video/lion-statement.mp4" type="video/mp4" />
-        )}
-      </video>
-      <WatermarkBadge />
+      <div className="relative h-full w-full lg:mx-auto lg:aspect-[9/16] lg:w-auto">
+        <video
+          ref={videoRef}
+          className="h-full w-full object-cover"
+          muted
+          playsInline
+          preload="none"
+          poster="/posters/lion-statement.jpg"
+          aria-hidden
+        >
+          {shouldLoad && (
+            <source src="/video/lion-statement.mp4" type="video/mp4" />
+          )}
+        </video>
+        <WatermarkBadge />
+      </div>
     </section>
   );
 }

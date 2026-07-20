@@ -94,19 +94,21 @@ function ReelCard({ reel }: { reel: SpecialtyReel }) {
     // taller than the viewport so scrolling through it has room to scrub
     // the video's own timeline instead of just flashing past it
     <div ref={wrapperRef} className="relative h-[170dvh]">
-      <div className="vignette-corner sticky top-0 h-[100dvh] w-full overflow-hidden">
-        <video
-          ref={videoRef}
-          className="h-full w-full object-cover object-left"
-          muted
-          playsInline
-          preload="none"
-          poster={reel.poster}
-          aria-label={reel.covers.join(", ")}
-        >
-          {shouldLoad && <source src={reel.video} type="video/mp4" />}
-        </video>
-        <WatermarkBadge />
+      <div className="sticky top-0 h-[100dvh] w-full overflow-hidden bg-primary">
+        <div className="vignette-corner relative h-full w-full lg:mx-auto lg:aspect-[9/16] lg:w-auto">
+          <video
+            ref={videoRef}
+            className="h-full w-full object-cover object-left"
+            muted
+            playsInline
+            preload="none"
+            poster={reel.poster}
+            aria-label={reel.covers.join(", ")}
+          >
+            {shouldLoad && <source src={reel.video} type="video/mp4" />}
+          </video>
+          <WatermarkBadge />
+        </div>
       </div>
     </div>
   );

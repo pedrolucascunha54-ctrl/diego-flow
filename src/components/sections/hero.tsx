@@ -45,7 +45,7 @@ export function Hero() {
         <MediaVideo
           src="/video/hero.mp4"
           poster="/posters/hero.jpg"
-          className="h-full w-full"
+          className="h-full w-full lg:mx-auto lg:aspect-[9/16] lg:w-auto"
           priority
           videoStyle={{ transform: "scale(1.32) translateY(-16%)" }}
         />
