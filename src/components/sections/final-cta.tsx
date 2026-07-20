@@ -8,7 +8,7 @@ export function FinalCta() {
   return (
     <section
       id="contato"
-      className="noise-overlay relative overflow-hidden bg-primary py-28 sm:py-36"
+      className="noise-overlay relative overflow-hidden bg-primary pb-28 pt-48 sm:pb-36 sm:pt-64"
     >
       <div className="absolute inset-0" aria-hidden>
         <Image
