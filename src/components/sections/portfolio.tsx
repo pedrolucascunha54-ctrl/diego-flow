@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { PORTFOLIO_ITEMS } from "@/lib/content";
 import { SectionLabel } from "@/components/ui/section-label";
 import { MediaImage } from "@/components/ui/media-image";
+import { TraceReveal } from "@/components/ui/trace-reveal";
 import { cn } from "@/lib/utils";
 
 export function Portfolio() {
@@ -72,11 +73,20 @@ export function Portfolio() {
                 className="flex h-[60vh] w-[78vw] shrink-0 flex-col gap-5 sm:h-[65vh] sm:w-[420px]"
               >
                 <div className="relative flex-1 overflow-hidden rounded-[var(--radius-xl)] border border-border">
-                  <MediaImage
-                    src={item.image}
-                    alt={`${item.title} — ${item.category}`}
-                    className="h-full w-full"
-                  />
+                  {item.beforeImage ? (
+                    <TraceReveal
+                      before={item.beforeImage}
+                      after={item.image}
+                      alt={`${item.title} — ${item.category}`}
+                      className="h-full w-full"
+                    />
+                  ) : (
+                    <MediaImage
+                      src={item.image}
+                      alt={`${item.title} — ${item.category}`}
+                      className="h-full w-full"
+                    />
+                  )}
                 </div>
                 <div className="flex flex-col gap-2 px-1">
                   <span className="font-mono text-xs uppercase tracking-[0.3em] text-gold">

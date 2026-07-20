@@ -131,6 +131,7 @@ export type PortfolioItem = {
   category: string;
   index: string;
   image: string;
+  beforeImage?: string;
 };
 
 export const PORTFOLIO_ITEMS: PortfolioItem[] = [
@@ -168,6 +169,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     category: "O Processo",
     index: "05",
     image: "/images/portfolio/do-traco-a-obra.webp",
+    beforeImage: "/images/portfolio/do-traco-a-obra-traco.webp",
   },
   {
     slug: "atras-da-mascara",
