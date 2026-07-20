@@ -9,10 +9,13 @@ import { MediaImage } from "@/components/ui/media-image";
 import { TraceReveal } from "@/components/ui/trace-reveal";
 import { cn } from "@/lib/utils";
 
+const TRACE_INDEX = PORTFOLIO_ITEMS.findIndex((item) => item.beforeImage);
+
 export function Portfolio() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const traceOverlayRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
 
   useEffect(() => {
@@ -43,6 +46,21 @@ export function Portfolio() {
         setActive(
           Math.round(self.progress * (PORTFOLIO_ITEMS.length - 1))
         );
+
+        // the sketch/finished swap for "Do Traço à Obra" is driven by how
+        // far the visitor has swiped past that card, not by a timer — it
+        // stays on the sketch until they scroll past it, then holds on the
+        // finished shot
+        if (traceOverlayRef.current && TRACE_INDEX >= 0) {
+          const localProgress =
+            self.progress * (PORTFOLIO_ITEMS.length - 1) - TRACE_INDEX;
+          const opacity = gsap.utils.clamp(
+            0,
+            1,
+            1 - (localProgress + 0.15) / 0.35
+          );
+          traceOverlayRef.current.style.opacity = String(opacity);
+        }
       },
     });
 
@@ -75,6 +93,7 @@ export function Portfolio() {
                 <div className="relative flex-1 overflow-hidden rounded-[var(--radius-xl)] border border-border">
                   {item.beforeImage ? (
                     <TraceReveal
+                      ref={traceOverlayRef}
                       before={item.beforeImage}
                       after={item.image}
                       alt={`${item.title} — ${item.category}`}
