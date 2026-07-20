@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
 export function MediaVideo({
@@ -13,9 +14,30 @@ export function MediaVideo({
   className?: string;
   priority?: boolean;
 }) {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    // pause decoding once scrolled past — a background video left playing
+    // for the rest of the scroll is pure wasted CPU/GPU
+    const el = wrapperRef.current;
+    const video = videoRef.current;
+    if (!el || !video) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) video.play().catch(() => {});
+        else video.pause();
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className={cn("vignette-corner relative overflow-hidden", className)}>
+    <div ref={wrapperRef} className={cn("vignette-corner relative overflow-hidden", className)}>
       <video
+        ref={videoRef}
         className="h-full w-full object-cover"
         autoPlay
         muted
