@@ -4,17 +4,15 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { MediaVideo } from "@/components/ui/media-video";
 import { RevealText } from "@/components/ui/reveal-text";
 import { SectionLabel } from "@/components/ui/section-label";
 import { GlassButton } from "@/components/ui/glass-button";
 import { WHATSAPP_DEFAULT_LINK } from "@/lib/whatsapp";
 
-const VIDEO_FPS = 24;
-
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const mediaRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -38,57 +36,6 @@ export function Hero() {
     return () => ctx.revert();
   }, []);
 
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    const section = sectionRef.current;
-    const video = videoRef.current;
-    if (!section || !video) return;
-
-    let ready = false;
-    let lastFrame = -1;
-
-    const unlock = () => {
-      // iOS Safari only allows currentTime scrubbing after an initial play/pause cycle
-      video
-        .play()
-        .then(() => video.pause())
-        .catch(() => {});
-      ready = true;
-    };
-
-    if (video.readyState >= 1) {
-      unlock();
-    } else {
-      video.addEventListener("loadedmetadata", unlock, { once: true });
-    }
-
-    // the logo reveals out of the smoke as the visitor scrolls through the
-    // hero — its timeline is scrubbed by scroll position instead of
-    // autoplaying on a timer
-    const trigger = ScrollTrigger.create({
-      trigger: section,
-      start: "top top",
-      end: "bottom top",
-      scrub: true,
-      onUpdate: (self) => {
-        if (ready && video.duration) {
-          // only issue a seek when the target frame actually changes —
-          // setting currentTime on every scroll tick is what stutters on Android
-          const frame = Math.round(self.progress * video.duration * VIDEO_FPS);
-          if (frame !== lastFrame) {
-            lastFrame = frame;
-            video.currentTime = frame / VIDEO_FPS;
-          }
-        }
-      },
-    });
-
-    return () => {
-      trigger.kill();
-      video.removeEventListener("loadedmetadata", unlock);
-    };
-  }, []);
-
   return (
     <section
       id="top"
@@ -96,21 +43,12 @@ export function Hero() {
       className="relative flex h-[100dvh] min-h-[640px] items-end overflow-hidden bg-primary"
     >
       <div ref={mediaRef} className="absolute inset-0">
-        <div className="vignette-corner relative h-full w-full overflow-hidden">
-          <video
-            ref={videoRef}
-            className="h-full w-full object-cover"
-            muted
-            playsInline
-            preload="auto"
-            poster="/posters/hero.jpg"
-            aria-hidden
-          >
-            <source src="/video/hero.mp4" type="video/mp4" />
-          </video>
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background/70 to-transparent" />
-        </div>
+        <MediaVideo
+          src="/video/hero.mp4"
+          poster="/posters/hero.jpg"
+          className="h-full w-full"
+          priority
+        />
       </div>
 
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/25 to-background/10" />
