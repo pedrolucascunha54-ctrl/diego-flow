@@ -2,11 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import { WatermarkBadge } from "@/components/ui/watermark-badge";
+import { cn } from "@/lib/utils";
 
 export function Statement() {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [shouldLoad, setShouldLoad] = useState(false);
+  const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
     // defer fetching the video until the section is actually approaching —
@@ -50,7 +52,10 @@ export function Statement() {
         // play() again after "ended" restarts it from frame zero in most
         // browsers, which is what was making it look like it kept looping
         if (entry.isIntersecting) {
-          if (!ended) video.play().catch(() => {});
+          if (!ended) {
+            video.play().catch(() => {});
+            setRevealed(true);
+          }
         } else {
           video.pause();
         }
@@ -86,6 +91,15 @@ export function Statement() {
           )}
         </video>
         <WatermarkBadge />
+        {/* the clip's text is burned in from frame one, so mask it until the
+            visitor actually scrolls to this section instead of flashing the
+            finished copy before the reveal plays */}
+        <div
+          className={cn(
+            "pointer-events-none absolute inset-0 bg-primary transition-opacity duration-700",
+            revealed ? "opacity-0" : "opacity-100"
+          )}
+        />
       </div>
     </section>
   );

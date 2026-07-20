@@ -7,6 +7,7 @@ import { SPECIALTY_REELS, type SpecialtyReel } from "@/lib/content";
 import { SectionLabel } from "@/components/ui/section-label";
 import { RevealText } from "@/components/ui/reveal-text";
 import { WatermarkBadge } from "@/components/ui/watermark-badge";
+import { cn } from "@/lib/utils";
 
 const VIDEO_FPS = 24;
 
@@ -14,6 +15,7 @@ function ReelCard({ reel }: { reel: SpecialtyReel }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [shouldLoad, setShouldLoad] = useState(false);
+  const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
     // defer fetching each reel until its card is actually approaching —
@@ -36,6 +38,25 @@ function ReelCard({ reel }: { reel: SpecialtyReel }) {
   useEffect(() => {
     if (shouldLoad) videoRef.current?.load();
   }, [shouldLoad]);
+
+  useEffect(() => {
+    // each reel's text/segment labels are burned in from frame one, so mask
+    // the card until the visitor actually scrolls to it instead of flashing
+    // the finished copy before they arrive
+    const el = wrapperRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setRevealed(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     // each reel's segments (e.g. reel-04 runs through Arte Sacra, Mitologia
@@ -108,6 +129,12 @@ function ReelCard({ reel }: { reel: SpecialtyReel }) {
             {shouldLoad && <source src={reel.video} type="video/mp4" />}
           </video>
           <WatermarkBadge />
+          <div
+            className={cn(
+              "pointer-events-none absolute inset-0 bg-primary transition-opacity duration-700",
+              revealed ? "opacity-0" : "opacity-100"
+            )}
+          />
         </div>
       </div>
     </div>
