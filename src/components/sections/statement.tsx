@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { WatermarkBadge } from "@/components/ui/watermark-badge";
 
 export function Statement() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -68,6 +69,7 @@ export function Statement() {
           <source src="/video/lion-statement.mp4" type="video/mp4" />
         )}
       </video>
+      <WatermarkBadge />
     </section>
   );
 }

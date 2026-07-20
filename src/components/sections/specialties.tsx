@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { SPECIALTY_REELS, type SpecialtyReel } from "@/lib/content";
 import { SectionLabel } from "@/components/ui/section-label";
 import { RevealText } from "@/components/ui/reveal-text";
+import { WatermarkBadge } from "@/components/ui/watermark-badge";
 
 function ReelCard({ reel }: { reel: SpecialtyReel }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -68,6 +69,7 @@ function ReelCard({ reel }: { reel: SpecialtyReel }) {
       >
         {shouldLoad && <source src={reel.video} type="video/mp4" />}
       </video>
+      <WatermarkBadge />
     </div>
   );
 }
