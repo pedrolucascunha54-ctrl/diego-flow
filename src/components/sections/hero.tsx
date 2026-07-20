@@ -6,7 +6,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MediaVideo } from "@/components/ui/media-video";
 import { RevealText } from "@/components/ui/reveal-text";
-import { SectionLabel } from "@/components/ui/section-label";
 import { GlassButton } from "@/components/ui/glass-button";
 import { WHATSAPP_DEFAULT_LINK } from "@/lib/whatsapp";
 
@@ -54,20 +53,12 @@ export function Hero() {
 
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/25 to-background/10" />
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-6 sm:px-8 sm:pb-10">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          <SectionLabel light>Flow Tattoo — Diego Mesquita</SectionLabel>
-        </motion.div>
-
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-4 sm:px-8 sm:pb-8">
         <RevealText
           text="A arte do realismo em preto e cinza."
           as="h1"
           delay={0.35}
-          className="mt-5 max-w-3xl font-display text-[2.6rem] font-medium italic leading-[1.02] text-ivory text-balance sm:text-6xl lg:text-7xl"
+          className="max-w-3xl font-display text-[2.6rem] font-medium italic leading-[1.02] text-ivory text-balance sm:text-6xl lg:text-7xl"
         />
 
         <motion.p
