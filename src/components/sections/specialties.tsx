@@ -1,10 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SPECIALTY_REELS, type SpecialtyReel } from "@/lib/content";
 import { SectionLabel } from "@/components/ui/section-label";
 import { RevealText } from "@/components/ui/reveal-text";
 import { WatermarkBadge } from "@/components/ui/watermark-badge";
+
+const VIDEO_FPS = 24;
 
 function ReelCard({ reel }: { reel: SpecialtyReel }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -34,42 +38,76 @@ function ReelCard({ reel }: { reel: SpecialtyReel }) {
   }, [shouldLoad]);
 
   useEffect(() => {
-    // pause decoding while the card is off-screen — otherwise, once all
-    // four reels have scrolled past, all four keep decoding in the
-    // background at once
-    const el = wrapperRef.current;
+    // each reel's segments (e.g. reel-04 runs through Arte Sacra, Mitologia
+    // and Anime Realista back to back) are baked into the footage, so its
+    // timeline has to be scrubbed by scroll position — otherwise it cycles
+    // through them on its own timer regardless of what the visitor is
+    // actually looking at
+    gsap.registerPlugin(ScrollTrigger);
+    const wrapper = wrapperRef.current;
     const video = videoRef.current;
-    if (!el || !video) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) video.play().catch(() => {});
-        else video.pause();
+    if (!wrapper || !video) return;
+
+    let ready = false;
+    let lastFrame = -1;
+
+    const unlock = () => {
+      // iOS Safari only allows currentTime scrubbing after an initial play/pause cycle
+      video
+        .play()
+        .then(() => video.pause())
+        .catch(() => {});
+      ready = true;
+    };
+
+    if (video.readyState >= 1) {
+      unlock();
+    } else {
+      video.addEventListener("loadedmetadata", unlock, { once: true });
+    }
+
+    const trigger = ScrollTrigger.create({
+      trigger: wrapper,
+      start: "top top",
+      end: "bottom bottom",
+      scrub: true,
+      onUpdate: (self) => {
+        if (ready && video.duration) {
+          // only issue a seek when the target frame actually changes —
+          // setting currentTime on every scroll tick is what stutters on Android
+          const frame = Math.round(self.progress * video.duration * VIDEO_FPS);
+          if (frame !== lastFrame) {
+            lastFrame = frame;
+            video.currentTime = frame / VIDEO_FPS;
+          }
+        }
       },
-      { threshold: 0.15 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
+    });
+
+    return () => {
+      trigger.kill();
+      video.removeEventListener("loadedmetadata", unlock);
+    };
   }, []);
 
   return (
-    <div
-      ref={wrapperRef}
-      className="vignette-corner relative h-[100dvh] w-full overflow-hidden"
-    >
-      <video
-        ref={videoRef}
-        className="h-full w-full object-cover object-left"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="none"
-        poster={reel.poster}
-        aria-label={reel.covers.join(", ")}
-      >
-        {shouldLoad && <source src={reel.video} type="video/mp4" />}
-      </video>
-      <WatermarkBadge />
+    // taller than the viewport so scrolling through it has room to scrub
+    // the video's own timeline instead of just flashing past it
+    <div ref={wrapperRef} className="relative h-[170dvh]">
+      <div className="vignette-corner sticky top-0 h-[100dvh] w-full overflow-hidden">
+        <video
+          ref={videoRef}
+          className="h-full w-full object-cover object-left"
+          muted
+          playsInline
+          preload="none"
+          poster={reel.poster}
+          aria-label={reel.covers.join(", ")}
+        >
+          {shouldLoad && <source src={reel.video} type="video/mp4" />}
+        </video>
+        <WatermarkBadge />
+      </div>
     </div>
   );
 }
