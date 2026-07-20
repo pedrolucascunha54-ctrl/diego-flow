@@ -8,11 +8,13 @@ export function MediaVideo({
   poster,
   className,
   priority = false,
+  videoStyle,
 }: {
   src: string;
   poster: string;
   className?: string;
   priority?: boolean;
+  videoStyle?: React.CSSProperties;
 }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -39,6 +41,7 @@ export function MediaVideo({
       <video
         ref={videoRef}
         className="h-full w-full object-cover"
+        style={videoStyle}
         autoPlay
         muted
         loop

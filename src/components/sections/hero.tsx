@@ -48,6 +48,7 @@ export function Hero() {
           poster="/posters/hero.jpg"
           className="h-full w-full"
           priority
+          videoStyle={{ transform: "scale(1.2) translateY(-9%)" }}
         />
       </div>
 

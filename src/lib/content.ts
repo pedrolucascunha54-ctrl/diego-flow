@@ -143,7 +143,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
   },
   {
     slug: "arcanjo-miguel",
-    title: "Arcanjo Miguel",
+    title: "Coroa de Espinhos",
     category: "Mitologia & Arte Sacra",
     index: "02",
     image: "/images/portfolio/arcanjo-miguel.webp",
