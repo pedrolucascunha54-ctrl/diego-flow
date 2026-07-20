@@ -37,15 +37,32 @@ export function Statement() {
     const section = sectionRef.current;
     const video = videoRef.current;
     if (!section || !video) return;
+
+    let ended = false;
+    const onEnded = () => {
+      ended = true;
+    };
+    video.addEventListener("ended", onEnded);
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) video.play().catch(() => {});
-        else video.pause();
+        // once it's played through, leave it on its last frame — calling
+        // play() again after "ended" restarts it from frame zero in most
+        // browsers, which is what was making it look like it kept looping
+        if (entry.isIntersecting) {
+          if (!ended) video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
       },
       { threshold: 0.15 }
     );
     observer.observe(section);
-    return () => observer.disconnect();
+
+    return () => {
+      observer.disconnect();
+      video.removeEventListener("ended", onEnded);
+    };
   }, []);
 
   return (
