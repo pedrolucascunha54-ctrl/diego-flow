@@ -54,7 +54,7 @@ export function Hero() {
 
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/25 to-background/10" />
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-24 sm:px-8 sm:pb-28">
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-6 sm:px-8 sm:pb-10">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
