@@ -2,13 +2,17 @@ import Image from "next/image";
 
 export function WatermarkBadge() {
   return (
-    <Image
-      src="/images/logo-crown.png"
-      alt=""
-      width={163}
-      height={140}
+    <div
+      className="pointer-events-none absolute bottom-[3%] right-[3%] aspect-square w-[14%] max-w-[110px] min-w-[44px]"
       aria-hidden
-      className="pointer-events-none absolute bottom-3 right-3 h-8 w-auto opacity-95 sm:bottom-4 sm:right-4 sm:h-10"
-    />
+    >
+      <Image
+        src="/images/logo-badge.webp"
+        alt=""
+        fill
+        sizes="110px"
+        className="object-contain"
+      />
+    </div>
   );
 }
