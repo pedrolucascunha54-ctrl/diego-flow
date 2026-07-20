@@ -3,14 +3,14 @@ import Image from "next/image";
 export function WatermarkBadge() {
   return (
     <div
-      className="pointer-events-none absolute bottom-[3%] right-[3%] aspect-square w-[14%] max-w-[110px] min-w-[44px]"
+      className="pointer-events-none absolute bottom-[1.5%] right-[1%] aspect-square w-[22%] max-w-[150px] min-w-[64px]"
       aria-hidden
     >
       <Image
         src="/images/logo-badge.webp"
         alt=""
         fill
-        sizes="110px"
+        sizes="150px"
         className="object-contain"
       />
     </div>
