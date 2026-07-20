@@ -88,7 +88,7 @@ export function Portfolio() {
             {PORTFOLIO_ITEMS.map((item) => (
               <div
                 key={item.slug}
-                className="flex h-[80vh] w-[78vw] shrink-0 flex-col gap-5 sm:h-[85vh] sm:w-[420px]"
+                className="flex h-[80vh] w-[78vw] shrink-0 flex-col gap-5 sm:h-[85vh] sm:w-[420px] lg:h-[65vh]"
               >
                 <div className="relative flex-1 overflow-hidden rounded-[var(--radius-xl)] border border-border">
                   {item.beforeImage ? (
