@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { RevealText } from "@/components/ui/reveal-text";
 import { SectionLabel } from "@/components/ui/section-label";
 import { GlassButton } from "@/components/ui/glass-button";
@@ -9,6 +10,18 @@ export function FinalCta() {
       id="contato"
       className="noise-overlay relative overflow-hidden bg-primary py-28 sm:py-36"
     >
+      <div className="absolute inset-0" aria-hidden>
+        <Image
+          src="/images/diego-studio.webp"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover object-[center_22%]"
+        />
+        <div className="absolute inset-0 bg-background/75" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/55" />
+      </div>
+
       <div
         className="pointer-events-none absolute left-1/2 top-0 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/3 rounded-full opacity-20 blur-[110px]"
         style={{ background: "radial-gradient(circle, var(--color-gold), transparent 70%)" }}
