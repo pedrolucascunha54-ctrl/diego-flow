@@ -73,7 +73,7 @@ export function Portfolio() {
   return (
     <section id="portfolio" className="bg-background pb-8 pt-24 sm:pb-12 sm:pt-32">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <SectionLabel>Portfólio</SectionLabel>
+        <SectionLabel className="text-sm sm:text-base">Portfólio</SectionLabel>
       </div>
 
       <div ref={wrapperRef} className="relative mt-10 sm:mt-12">
@@ -88,7 +88,7 @@ export function Portfolio() {
             {PORTFOLIO_ITEMS.map((item) => (
               <div
                 key={item.slug}
-                className="flex h-[60vh] w-[78vw] shrink-0 flex-col gap-5 sm:h-[65vh] sm:w-[420px]"
+                className="flex h-[80vh] w-[78vw] shrink-0 flex-col gap-5 sm:h-[85vh] sm:w-[420px]"
               >
                 <div className="relative flex-1 overflow-hidden rounded-[var(--radius-xl)] border border-border">
                   {item.beforeImage ? (
