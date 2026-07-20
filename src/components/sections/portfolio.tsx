@@ -49,15 +49,15 @@ export function Portfolio() {
 
         // the sketch/finished swap for "Do Traço à Obra" is driven by how
         // far the visitor has swiped past that card, not by a timer — it
-        // stays on the sketch until they scroll past it, then holds on the
-        // finished shot
+        // stays on the sketch through the card's arrival and only swaps to
+        // the finished shot once they scroll past it toward the next one
         if (traceOverlayRef.current && TRACE_INDEX >= 0) {
           const localProgress =
             self.progress * (PORTFOLIO_ITEMS.length - 1) - TRACE_INDEX;
           const opacity = gsap.utils.clamp(
             0,
             1,
-            1 - (localProgress + 0.15) / 0.35
+            1 - (localProgress - 0.05) / 0.35
           );
           traceOverlayRef.current.style.opacity = String(opacity);
         }
