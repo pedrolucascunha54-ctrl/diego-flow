@@ -48,13 +48,13 @@ export function Hero() {
           poster="/posters/hero.jpg"
           className="h-full w-full"
           priority
-          videoStyle={{ transform: "scale(1.2) translateY(-9%)" }}
+          videoStyle={{ transform: "scale(1.32) translateY(-16%)" }}
         />
       </div>
 
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/25 to-background/10" />
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-16 sm:px-8 sm:pb-24">
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-24 sm:px-8 sm:pb-28">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
