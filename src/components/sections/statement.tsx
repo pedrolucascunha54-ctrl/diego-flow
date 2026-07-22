@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { WatermarkBadge } from "@/components/ui/watermark-badge";
 import { cn } from "@/lib/utils";
 
 export function Statement() {
@@ -90,7 +89,6 @@ export function Statement() {
             <source src="/video/lion-statement.mp4" type="video/mp4" />
           )}
         </video>
-        <WatermarkBadge />
         {/* the clip's text is burned in from frame one, so mask it until the
             visitor actually scrolls to this section instead of flashing the
             finished copy before the reveal plays */}

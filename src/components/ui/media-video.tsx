@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { WatermarkBadge } from "@/components/ui/watermark-badge";
 import { cn } from "@/lib/utils";
 
 export function MediaVideo({
@@ -56,7 +55,6 @@ export function MediaVideo({
       {/* soft cinematic vignette — also conceals the AI-generation watermark in the source clip */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background/70 to-transparent" />
-      <WatermarkBadge />
     </div>
   );
 }

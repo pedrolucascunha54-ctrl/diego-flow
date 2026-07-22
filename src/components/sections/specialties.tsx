@@ -6,7 +6,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SPECIALTY_REELS, type SpecialtyReel } from "@/lib/content";
 import { SectionLabel } from "@/components/ui/section-label";
 import { RevealText } from "@/components/ui/reveal-text";
-import { WatermarkBadge } from "@/components/ui/watermark-badge";
 import { cn } from "@/lib/utils";
 
 const VIDEO_FPS = 24;
@@ -128,7 +127,6 @@ function ReelCard({ reel }: { reel: SpecialtyReel }) {
           >
             {shouldLoad && <source src={reel.video} type="video/mp4" />}
           </video>
-          <WatermarkBadge />
           <div
             className={cn(
               "pointer-events-none absolute inset-0 bg-primary transition-opacity duration-700",
