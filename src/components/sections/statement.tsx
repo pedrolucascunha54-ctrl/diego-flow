@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { cn } from "@/lib/utils";
 
 export function Statement() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -75,29 +74,39 @@ export function Statement() {
       className="relative h-[100dvh] overflow-hidden bg-primary"
       aria-label="Tattoos que marcam presença"
     >
-      <div className="relative h-full w-full lg:mx-auto lg:aspect-[9/16] lg:w-auto">
-        <video
-          ref={videoRef}
-          className="h-full w-full object-cover"
-          muted
-          playsInline
-          preload="none"
-          poster="/posters/lion-statement.jpg"
-          aria-hidden
-        >
-          {shouldLoad && (
-            <source src="/video/lion-statement.mp4" type="video/mp4" />
-          )}
-        </video>
-        {/* the clip's text is burned in from frame one, so mask it until the
-            visitor actually scrolls to this section instead of flashing the
-            finished copy before the reveal plays */}
+      {/* the clip's text is burned in from frame one, so nothing is visible
+          until the visitor scrolls to this section — it then opens through
+          an expanding circular iris instead of a plain fade */}
+      <div
+        className="absolute inset-0"
+        style={{
+          clipPath: revealed
+            ? "circle(150% at 50% 50%)"
+            : "circle(0% at 50% 50%)",
+          transition: "clip-path 1.4s cubic-bezier(0.65, 0, 0.35, 1)",
+        }}
+      >
         <div
-          className={cn(
-            "pointer-events-none absolute inset-0 bg-primary transition-opacity duration-700",
-            revealed ? "opacity-0" : "opacity-100"
-          )}
-        />
+          className="h-full w-full lg:mx-auto lg:aspect-[9/16] lg:w-auto"
+          style={{
+            transform: revealed ? "scale(1)" : "scale(1.2)",
+            transition: "transform 1.4s cubic-bezier(0.65, 0, 0.35, 1)",
+          }}
+        >
+          <video
+            ref={videoRef}
+            className="h-full w-full object-cover"
+            muted
+            playsInline
+            preload="none"
+            poster="/posters/lion-statement.jpg"
+            aria-hidden
+          >
+            {shouldLoad && (
+              <source src="/video/lion-statement.mp4" type="video/mp4" />
+            )}
+          </video>
+        </div>
       </div>
     </section>
   );
