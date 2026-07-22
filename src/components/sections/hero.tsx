@@ -50,6 +50,23 @@ export function Hero() {
           />
 
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/55 via-background/30 to-background/10" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent" />
+
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="absolute left-[10%] top-[5%] w-[64%] max-w-[420px]"
+          >
+            <Image
+              src="/images/hero-logo-mark.webp"
+              alt=""
+              width={330}
+              height={210}
+              aria-hidden
+              className="h-auto w-full"
+            />
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 10 }}
