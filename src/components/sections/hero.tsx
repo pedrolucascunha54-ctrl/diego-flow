@@ -66,20 +66,49 @@ export function Hero() {
             />
           </motion.div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-            className="absolute left-[12%] top-[49%] w-[78%] max-w-md font-sans text-lg font-bold leading-snug text-ivory sm:text-xl"
-          >
-            Projetos exclusivos em{" "}
-            <span className="text-orange-400">Realismo Preto e Cinza</span> e
-            Blackwork, desenvolvidos com{" "}
-            <span className="text-orange-400">
-              planejamento, composição e técnica
-            </span>{" "}
-            pra entregar uma tattoo que continua absurda com o passar dos anos.
-          </motion.p>
+          <p className="absolute left-[12%] top-[49%] w-[78%] max-w-md font-sans text-xl font-bold leading-snug text-ivory sm:text-2xl">
+            <motion.span
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.9 }}
+              className="inline-block"
+            >
+              Projetos exclusivos em{" "}
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.15 }}
+              className="inline-block text-orange-400"
+            >
+              Realismo Preto e Cinza{" "}
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.4 }}
+              className="inline-block"
+            >
+              e Blackwork, desenvolvidos com{" "}
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.65 }}
+              className="inline-block text-orange-400"
+            >
+              planejamento, composição e técnica{" "}
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.9 }}
+              className="inline-block"
+            >
+              pra entregar uma tattoo que continua absurda com o passar dos
+              anos.
+            </motion.span>
+          </p>
         </div>
       </div>
 
