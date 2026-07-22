@@ -29,7 +29,7 @@ export function Footer() {
               <a
                 key={link.href}
                 href={link.href}
-                className="font-mono text-xs uppercase tracking-[0.2em] text-muted transition-colors hover:text-gold"
+                className="font-mono text-xs uppercase tracking-[0.2em] text-muted transition-colors hover:text-orange-400"
               >
                 {link.label}
               </a>
@@ -38,7 +38,7 @@ export function Footer() {
               href={SITE.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.2em] text-gold transition-colors hover:text-gold-hover"
+              className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.2em] text-orange-400 transition-colors hover:text-orange-300"
             >
               <InstagramIcon className="h-3.5 w-3.5" strokeWidth={1.5} />
               Instagram
@@ -47,7 +47,7 @@ export function Footer() {
               href={WHATSAPP_DEFAULT_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-xs uppercase tracking-[0.2em] text-gold transition-colors hover:text-gold-hover"
+              className="font-mono text-xs uppercase tracking-[0.2em] text-orange-400 transition-colors hover:text-orange-300"
             >
               WhatsApp
             </a>
@@ -63,7 +63,7 @@ export function Footer() {
             href={SITE.mapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-mono text-xs uppercase tracking-[0.2em] text-gold transition-colors hover:text-gold-hover"
+            className="font-mono text-xs uppercase tracking-[0.2em] text-orange-400 transition-colors hover:text-orange-300"
           >
             Ver no Google Maps
           </a>

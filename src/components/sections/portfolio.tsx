@@ -108,7 +108,7 @@ export function Portfolio() {
                   )}
                 </div>
                 <div className="flex flex-col gap-2 px-1">
-                  <span className="font-mono text-xs uppercase tracking-[0.3em] text-gold">
+                  <span className="font-mono text-xs uppercase tracking-[0.3em] text-orange-400">
                     {item.index} / {item.category}
                   </span>
                   <h3 className="font-display text-2xl italic leading-tight text-foreground sm:text-3xl">

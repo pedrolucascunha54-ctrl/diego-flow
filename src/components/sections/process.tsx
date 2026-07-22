@@ -46,7 +46,7 @@ export function Process() {
                 className="relative pl-9 sm:pl-12"
               >
                 <span className="absolute left-0 top-1 h-[15px] w-[15px] rounded-full border border-gold bg-background sm:h-[19px] sm:w-[19px]" />
-                <span className="font-mono text-xs text-gold/70">
+                <span className="font-mono text-xs text-orange-400/70">
                   {step.index}
                 </span>
                 <h3 className="mt-1 font-display text-2xl italic text-foreground sm:text-3xl">
