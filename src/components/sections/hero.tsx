@@ -52,37 +52,6 @@ export function Hero() {
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/55 via-background/30 to-background/10" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent" />
 
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="absolute left-[10%] top-[5%] w-[64%] max-w-[420px]"
-          >
-            <Image
-              src="/images/hero-logo-mark.webp"
-              alt=""
-              width={330}
-              height={210}
-              aria-hidden
-              className="h-auto w-full"
-            />
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="absolute left-[12%] top-[33%] w-[34%] max-w-[220px]"
-          >
-            <Image
-              src="/images/hero-logo-mark.webp"
-              alt="Flow Tattoo — Diego Mesquita"
-              width={330}
-              height={210}
-              className="h-auto w-full"
-            />
-          </motion.div>
-
           <p className="absolute left-[12%] top-[49%] w-[78%] max-w-md font-sans text-xl font-bold leading-snug text-ivory sm:text-2xl">
             <motion.span
               initial={{ opacity: 0, y: 14 }}
