@@ -4,7 +4,6 @@ import { Hero } from "@/components/sections/hero";
 import { Statement } from "@/components/sections/statement";
 import { Portfolio } from "@/components/sections/portfolio";
 import { Specialties } from "@/components/sections/specialties";
-import { Process } from "@/components/sections/process";
 import { FinalCta } from "@/components/sections/final-cta";
 
 export default function Home() {
@@ -14,9 +13,8 @@ export default function Home() {
       <main>
         <Hero />
         <Statement />
-        <Portfolio />
         <Specialties />
-        <Process />
+        <Portfolio />
         <FinalCta />
       </main>
       <Footer />

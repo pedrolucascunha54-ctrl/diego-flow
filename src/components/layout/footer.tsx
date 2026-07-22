@@ -7,7 +7,6 @@ import { SITE } from "@/lib/content";
 const LINKS = [
   { href: "#portfolio", label: "Portfólio" },
   { href: "#especialidades", label: "Especialidades" },
-  { href: "#processo", label: "Processo" },
 ];
 
 export function Footer() {

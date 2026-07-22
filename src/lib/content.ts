@@ -92,39 +92,6 @@ export const SPECIALTY_REELS: SpecialtyReel[] = [
   },
 ];
 
-export type ProcessStep = {
-  index: string;
-  title: string;
-  description: string;
-};
-
-export const PROCESS_STEPS: ProcessStep[] = [
-  {
-    index: "01",
-    title: "Conversa e Orçamento",
-    description:
-      "Você envia sua ideia, referências, local do corpo e tamanho aproximado. Com essas informações, fazemos uma análise e retornamos com o orçamento personalizado.",
-  },
-  {
-    index: "02",
-    title: "Projeto Exclusivo",
-    description:
-      "Desenvolvemos um projeto 100% autoral, alinhado ao estilo, anatomia e preferência de quem vai carregá-lo. O desenho é aprovado por você antes da sessão.",
-  },
-  {
-    index: "03",
-    title: "Sessão",
-    description:
-      "Chegou o dia da tatuagem. Materiais importados, técnica apurada e higiene rigorosa para garantir o melhor resultado e a sua segurança.",
-  },
-  {
-    index: "04",
-    title: "Cuidados e Resultado",
-    description:
-      "Após a sessão, você recebe todas as orientações para uma cicatrização perfeita. O resultado é uma obra feita para durar a vida inteira.",
-  },
-];
-
 export type PortfolioItem = {
   slug: string;
   title: string;
