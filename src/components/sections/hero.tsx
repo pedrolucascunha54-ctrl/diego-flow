@@ -1,12 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { MediaVideo } from "@/components/ui/media-video";
-import { GlassButton } from "@/components/ui/glass-button";
-import { WHATSAPP_DEFAULT_LINK } from "@/lib/whatsapp";
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -41,26 +39,48 @@ export function Hero() {
       className="relative flex h-[100dvh] min-h-[640px] items-end overflow-hidden bg-primary"
     >
       <div ref={mediaRef} className="absolute inset-0">
-        <MediaVideo
-          src="/video/hero.mp4"
-          poster="/posters/hero.jpg"
-          className="h-full w-full lg:mx-auto lg:aspect-[9/16] lg:w-auto"
-          priority
-        />
-      </div>
+        <div className="relative h-full w-full lg:mx-auto lg:aspect-[9/16] lg:w-auto">
+          <Image
+            src="/images/hero-photo.webp"
+            alt="Diego Mesquita no estúdio Flow Tattoo"
+            fill
+            priority
+            sizes="(min-width: 1024px) 100vh, 100vw"
+            className="object-cover"
+          />
 
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/25 to-background/10" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/25 to-background/10" />
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-4 sm:px-8 sm:pb-8">
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.9 }}
-        >
-          <GlassButton href={WHATSAPP_DEFAULT_LINK} size="lg">
-            Solicitar orçamento
-          </GlassButton>
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="absolute left-[12%] top-[33%] w-[34%] max-w-[220px]"
+          >
+            <Image
+              src="/images/hero-logo-mark.webp"
+              alt="Flow Tattoo — Diego Mesquita"
+              width={330}
+              height={210}
+              className="h-auto w-full"
+            />
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.9 }}
+            className="absolute left-[12%] top-[49%] w-[78%] max-w-md font-sans text-lg font-bold leading-snug text-ivory sm:text-xl"
+          >
+            Projetos exclusivos em{" "}
+            <span className="text-orange-400">Realismo Preto e Cinza</span> e
+            Blackwork, desenvolvidos com{" "}
+            <span className="text-orange-400">
+              planejamento, composição e técnica
+            </span>{" "}
+            pra entregar uma tattoo que continua absurda com o passar dos anos.
+          </motion.p>
+        </div>
       </div>
 
       <motion.div
