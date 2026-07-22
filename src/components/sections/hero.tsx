@@ -65,7 +65,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.9 }}
-          className="mt-6 max-w-md text-balance text-base leading-relaxed text-beige/90 sm:text-lg"
+          className="mt-6 max-w-md text-balance text-base leading-relaxed text-orange-400/90 sm:text-lg"
         >
           Projetos autorais que transformam referência em permanência — técnica
           apurada e um processo conduzido do primeiro traço à cicatrização.
