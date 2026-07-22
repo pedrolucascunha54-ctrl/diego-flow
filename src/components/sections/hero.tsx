@@ -49,7 +49,7 @@ export function Hero() {
             className="object-cover"
           />
 
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/25 to-background/10" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/55 via-background/30 to-background/10" />
 
           <motion.div
             initial={{ opacity: 0, y: 10 }}
