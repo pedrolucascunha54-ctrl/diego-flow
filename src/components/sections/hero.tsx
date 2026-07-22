@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MediaVideo } from "@/components/ui/media-video";
-import { RevealText } from "@/components/ui/reveal-text";
 import { GlassButton } from "@/components/ui/glass-button";
 import { WHATSAPP_DEFAULT_LINK } from "@/lib/whatsapp";
 
@@ -47,35 +46,16 @@ export function Hero() {
           poster="/posters/hero.jpg"
           className="h-full w-full lg:mx-auto lg:aspect-[9/16] lg:w-auto"
           priority
-          videoStyle={{ transform: "scale(1.32) translateY(-16%)" }}
         />
       </div>
 
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/25 to-background/10" />
 
       <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-4 sm:px-8 sm:pb-8">
-        <RevealText
-          text="A arte do realismo em preto e cinza."
-          as="h1"
-          delay={0.35}
-          className="max-w-3xl font-display text-[2.6rem] font-medium italic leading-[1.02] text-ivory text-balance sm:text-6xl lg:text-7xl"
-        />
-
-        <motion.p
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.9 }}
-          className="mt-6 max-w-md text-balance text-base leading-relaxed text-orange-400/90 sm:text-lg"
-        >
-          Projetos autorais que transformam referência em permanência — técnica
-          apurada e um processo conduzido do primeiro traço à cicatrização.
-        </motion.p>
-
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.1 }}
-          className="mt-9"
+          transition={{ duration: 0.8, delay: 0.9 }}
         >
           <GlassButton href={WHATSAPP_DEFAULT_LINK} size="lg">
             Solicitar orçamento
