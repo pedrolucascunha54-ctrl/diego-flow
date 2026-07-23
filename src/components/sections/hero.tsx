@@ -50,7 +50,13 @@ export function Hero() {
           />
 
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/55 via-background/30 to-background/10" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent" />
+          <div
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
+            style={{
+              background:
+                "linear-gradient(to top, color-mix(in oklab, var(--color-gold) 22%, var(--color-background)) 0%, transparent 100%)",
+            }}
+          />
 
           <p className="absolute left-[12%] top-[49%] w-[78%] max-w-md font-sans text-xl font-bold leading-snug text-ivory sm:text-2xl">
             <motion.span
