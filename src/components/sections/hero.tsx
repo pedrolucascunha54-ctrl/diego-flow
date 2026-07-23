@@ -81,12 +81,11 @@ export function Hero() {
             className="scale-110 object-cover"
           />
 
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/55 via-background/30 to-background/10" />
           <div
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
+            className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(to top, color-mix(in oklab, var(--color-gold) 22%, var(--color-background)) 0%, transparent 100%)",
+                "linear-gradient(to top, color-mix(in oklab, color-mix(in oklab, var(--color-gold) 35%, var(--color-background)) 75%, transparent) 0%, color-mix(in oklab, color-mix(in oklab, var(--color-gold) 25%, var(--color-background)) 45%, transparent) 35%, color-mix(in oklab, color-mix(in oklab, var(--color-gold) 15%, var(--color-background)) 20%, transparent) 65%, transparent 100%)",
             }}
           />
 
