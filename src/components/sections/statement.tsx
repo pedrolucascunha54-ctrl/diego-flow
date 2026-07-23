@@ -1,12 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export function Statement() {
   const sectionRef = useRef<HTMLElement>(null);
+  const clipRef = useRef<HTMLDivElement>(null);
+  const scaleRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [shouldLoad, setShouldLoad] = useState(false);
-  const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
     // defer fetching the video until the section is actually approaching —
@@ -50,10 +53,7 @@ export function Statement() {
         // play() again after "ended" restarts it from frame zero in most
         // browsers, which is what was making it look like it kept looping
         if (entry.isIntersecting) {
-          if (!ended) {
-            video.play().catch(() => {});
-            setRevealed(true);
-          }
+          if (!ended) video.play().catch(() => {});
         } else {
           video.pause();
         }
@@ -68,30 +68,46 @@ export function Statement() {
     };
   }, []);
 
+  useEffect(() => {
+    // the clip's text is burned in from frame one, so the reveal is tied
+    // directly to scroll position as the section enters the viewport —
+    // the circle opens gradually while the visitor scrolls down, instead
+    // of playing once on a fixed timer
+    gsap.registerPlugin(ScrollTrigger);
+    const section = sectionRef.current;
+    const clip = clipRef.current;
+    const scaleEl = scaleRef.current;
+    if (!section || !clip || !scaleEl) return;
+
+    const trigger = ScrollTrigger.create({
+      trigger: section,
+      start: "top bottom",
+      end: "top top",
+      scrub: true,
+      onUpdate: (self) => {
+        clip.style.clipPath = `circle(${self.progress * 150}% at 50% 50%)`;
+        scaleEl.style.transform = `scale(${1.2 - self.progress * 0.2})`;
+      },
+    });
+
+    return () => trigger.kill();
+  }, []);
+
   return (
     <section
       ref={sectionRef}
       className="relative h-[100dvh] overflow-hidden bg-primary"
       aria-label="Tattoos que marcam presença"
     >
-      {/* the clip's text is burned in from frame one, so nothing is visible
-          until the visitor scrolls to this section — it then opens through
-          an expanding circular iris instead of a plain fade */}
       <div
+        ref={clipRef}
         className="absolute inset-0"
-        style={{
-          clipPath: revealed
-            ? "circle(150% at 50% 50%)"
-            : "circle(0% at 50% 50%)",
-          transition: "clip-path 1.4s cubic-bezier(0.65, 0, 0.35, 1)",
-        }}
+        style={{ clipPath: "circle(0% at 50% 50%)" }}
       >
         <div
+          ref={scaleRef}
           className="h-full w-full lg:mx-auto lg:aspect-[9/16] lg:w-auto"
-          style={{
-            transform: revealed ? "scale(1)" : "scale(1.2)",
-            transition: "transform 1.4s cubic-bezier(0.65, 0, 0.35, 1)",
-          }}
+          style={{ transform: "scale(1.2)" }}
         >
           <video
             ref={videoRef}
