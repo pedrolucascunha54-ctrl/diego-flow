@@ -81,11 +81,6 @@ export function Hero() {
             className="scale-110 object-cover"
           />
 
-          {/* drifting smoke haze — pure CSS, no video decode cost */}
-          <div className="smoke-layer smoke-layer-1" />
-          <div className="smoke-layer smoke-layer-2" />
-          <div className="smoke-layer smoke-layer-3" />
-
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/55 via-background/30 to-background/10" />
           <div
             className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
