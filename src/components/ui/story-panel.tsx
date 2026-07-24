@@ -281,7 +281,7 @@ export function StoryCopy({
           return (
             <span
               key={`${segmentIndex}-${partIndex}`}
-              className="mr-[0.24em] overflow-hidden pb-[0.08em]"
+              className="mr-[0.24em] overflow-visible pb-[0.08em]"
               aria-hidden
             >
               <span

@@ -12,7 +12,7 @@ export function Statement() {
         <div className="absolute left-[7.4%] top-[24.2%] w-[49%]">
           <StoryCopy
             as="h2"
-            className="font-sans text-[clamp(1rem,3vh,1.7rem)] font-black uppercase leading-[0.98] text-white"
+            className="font-sans text-[clamp(1rem,3vh,1.7rem)] font-black uppercase leading-[1.08] text-white"
             segments={[
               { text: "Chega de salvar referência. " },
               {
@@ -69,7 +69,7 @@ export function Statement() {
         <div className="absolute left-[9.3%] top-[19.2%] w-[45%]">
           <StoryCopy
             as="h2"
-            className="font-sans text-[clamp(1.1rem,3.4vh,1.9rem)] font-black uppercase leading-[0.96] text-white"
+            className="font-sans text-[clamp(1.1rem,3.4vh,1.9rem)] font-black uppercase leading-[1.08] text-white"
             segments={[
               {
                 text: "Sua tatuagem merece um projeto,",

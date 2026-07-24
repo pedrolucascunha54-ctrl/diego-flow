@@ -33,13 +33,13 @@ export function Portfolio() {
   return (
     <section
       id="portfolio"
-      className="relative overflow-hidden bg-background pb-12 pt-24 sm:pb-16 sm:pt-32"
+      className="relative overflow-hidden bg-background pb-0 pt-24 sm:pt-32"
     >
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionLabel className="text-sm sm:text-base">Portfólio</SectionLabel>
       </div>
 
-      <div className="relative mt-8 h-[82dvh] min-h-[620px] w-full sm:mt-10">
+      <div className="relative mt-8 h-[70dvh] min-h-[560px] w-full sm:mt-10">
         <div className="relative h-full w-full">
           {PORTFOLIO_ITEMS.map((item, index) => {
             const isActive = index === active;
