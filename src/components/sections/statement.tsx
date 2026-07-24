@@ -1,129 +1,112 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { StoryCopy, StoryPanel } from "@/components/ui/story-panel";
 
 export function Statement() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const clipRef = useRef<HTMLDivElement>(null);
-  const scaleRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [shouldLoad, setShouldLoad] = useState(false);
-
-  useEffect(() => {
-    // defer fetching the video until the section is actually approaching —
-    // otherwise it competes with the hero video for the phone's decoder
-    // right at page load, which is what was making the site feel heavy
-    const section = sectionRef.current;
-    if (!section) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShouldLoad(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "150px 0px" }
-    );
-    observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (shouldLoad) videoRef.current?.load();
-  }, [shouldLoad]);
-
-  useEffect(() => {
-    // pause decoding while the section is off-screen — an autoplaying
-    // video left running behind the viewport is pure wasted CPU/GPU
-    const section = sectionRef.current;
-    const video = videoRef.current;
-    if (!section || !video) return;
-
-    let ended = false;
-    const onEnded = () => {
-      ended = true;
-    };
-    video.addEventListener("ended", onEnded);
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        // once it's played through, leave it on its last frame — calling
-        // play() again after "ended" restarts it from frame zero in most
-        // browsers, which is what was making it look like it kept looping
-        if (entry.isIntersecting) {
-          if (!ended) video.play().catch(() => {});
-        } else {
-          video.pause();
-        }
-      },
-      { threshold: 0.15 }
-    );
-    observer.observe(section);
-
-    return () => {
-      observer.disconnect();
-      video.removeEventListener("ended", onEnded);
-    };
-  }, []);
-
-  useEffect(() => {
-    // the clip's text is burned in from frame one, so the reveal is tied
-    // directly to scroll position as the section enters the viewport —
-    // the circle opens gradually while the visitor scrolls down, instead
-    // of playing once on a fixed timer
-    gsap.registerPlugin(ScrollTrigger);
-    const section = sectionRef.current;
-    const clip = clipRef.current;
-    const scaleEl = scaleRef.current;
-    if (!section || !clip || !scaleEl) return;
-
-    const trigger = ScrollTrigger.create({
-      trigger: section,
-      start: "top bottom",
-      end: "top top",
-      scrub: true,
-      onUpdate: (self) => {
-        clip.style.clipPath = `circle(${self.progress * 150}% at 50% 50%)`;
-        scaleEl.style.transform = `scale(${1.2 - self.progress * 0.2})`;
-      },
-    });
-
-    return () => trigger.kill();
-  }, []);
-
   return (
-    <section
-      ref={sectionRef}
-      className="relative h-[100dvh] overflow-hidden bg-primary"
-      aria-label="Tattoos que marcam presença"
-    >
-      <div
-        ref={clipRef}
-        className="absolute inset-0"
-        style={{ clipPath: "circle(0% at 50% 50%)" }}
+    <div aria-label="Projetos autorais">
+      <StoryPanel
+        image="/images/pdf-story/panel-2.webp"
+        alt="Composição artística de uma tatuagem autoral no braço"
+        label="Uma tatuagem que seja só sua"
+        transition="ink-left"
       >
-        <div
-          ref={scaleRef}
-          className="h-full w-full lg:mx-auto lg:aspect-[9/16] lg:w-auto"
-          style={{ transform: "scale(1.2)" }}
-        >
-          <video
-            ref={videoRef}
-            className="h-full w-full object-cover"
-            muted
-            playsInline
-            preload="none"
-            poster="/posters/lion-statement.jpg"
+        <div className="absolute left-[7.4%] top-[24.2%] w-[49%]">
+          <StoryCopy
+            as="h2"
+            className="font-sans text-[clamp(1rem,3vh,1.7rem)] font-black uppercase leading-[0.98] text-white"
+            segments={[
+              { text: "Chega de salvar referência. " },
+              {
+                text: "Bora criar uma tattoo que seja só sua.",
+                accent: true,
+              },
+            ]}
+          />
+          <div
+            data-reveal-rule
+            className="my-6 h-px w-full bg-orange-500"
             aria-hidden
-          >
-            {shouldLoad && (
-              <source src="/video/lion-statement.mp4" type="video/mp4" />
-            )}
-          </video>
+          />
+          <StoryCopy
+            className="font-sans text-[clamp(0.65rem,1.72vh,0.98rem)] leading-[1.48] text-white"
+            segments={[
+              {
+                text: "Realismo preto e cinza e Blackwork",
+                strong: true,
+              },
+              { text: " com projeto exclusivo, " },
+              {
+                text: "pensado pro seu braço e pro seu estilo.",
+                accent: true,
+                strong: true,
+              },
+              {
+                text: " Antes de tatuar, você vê uma montagem realista do resultado final.\n\nNada de copiar tattoo dos outros. ",
+              },
+              {
+                text: "Aqui a ideia é criar uma arte única,",
+                accent: true,
+                strong: true,
+              },
+              {
+                text: " que encaixe no seu corpo e tenha a sua identidade.\n\n",
+              },
+              {
+                text: "Se é pra marcar a pele, que seja com uma tattoo feita pra você.",
+                strong: true,
+              },
+            ]}
+          />
         </div>
-      </div>
-    </section>
+      </StoryPanel>
+
+      <StoryPanel
+        image="/images/pdf-story/panel-3.webp"
+        alt="Tatuagem realista em composição dramática preto e cinza"
+        label="Sua tatuagem merece um projeto, não uma cópia"
+        effect="smoke"
+        transition="ink-right"
+      >
+        <div className="absolute left-[9.3%] top-[19.2%] w-[45%]">
+          <StoryCopy
+            as="h2"
+            className="font-sans text-[clamp(1.1rem,3.4vh,1.9rem)] font-black uppercase leading-[0.96] text-white"
+            segments={[
+              {
+                text: "Sua tatuagem merece um projeto,",
+                accent: true,
+              },
+              { text: " não uma cópia." },
+            ]}
+          />
+          <StoryCopy
+            className="mt-[3vh] font-sans text-[clamp(0.66rem,1.85vh,1.04rem)] leading-[1.38] text-white"
+            segments={[
+              {
+                text: "Realismo preto e cinza",
+                accent: true,
+                strong: true,
+              },
+              { text: " vai muito além de copiar referências. " },
+              {
+                text: "Cada projeto é criado do zero, com uma montagem exclusiva para que você veja como a composição vai ficar no seu corpo",
+                accent: true,
+                strong: true,
+              },
+              {
+                text: " antes mesmo da primeira sessão.\n\nO resultado é uma tatuagem única, ",
+              },
+              {
+                text: "feita para valorizar a anatomia e contar a sua história.",
+                accent: true,
+                strong: true,
+              },
+              {
+                text: " Se você quer exclusividade de verdade, vamos criar o seu projeto.",
+              },
+            ]}
+          />
+        </div>
+      </StoryPanel>
+    </div>
   );
 }

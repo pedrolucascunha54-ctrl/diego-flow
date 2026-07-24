@@ -131,12 +131,11 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     image: "/images/portfolio/retrato-urbano.webp",
   },
   {
-    slug: "do-traco-a-obra",
-    title: "Do Traço à Obra",
-    category: "O Processo",
+    slug: "alem-da-orbita",
+    title: "Além da Órbita",
+    category: "Realismo Cósmico",
     index: "05",
-    image: "/images/portfolio/do-traco-a-obra.webp",
-    beforeImage: "/images/portfolio/do-traco-a-obra-traco.webp",
+    image: "/images/portfolio/alem-da-orbita.webp",
   },
   {
     slug: "atras-da-mascara",

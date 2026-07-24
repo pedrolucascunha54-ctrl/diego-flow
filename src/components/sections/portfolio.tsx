@@ -1,99 +1,80 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { PORTFOLIO_ITEMS } from "@/lib/content";
 import { SectionLabel } from "@/components/ui/section-label";
 import { MediaImage } from "@/components/ui/media-image";
 import { TraceReveal } from "@/components/ui/trace-reveal";
 import { cn } from "@/lib/utils";
 
-const TRACE_INDEX = PORTFOLIO_ITEMS.findIndex((item) => item.beforeImage);
-
 export function Portfolio() {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const stickyRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const traceOverlayRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  const lastIndex = PORTFOLIO_ITEMS.length - 1;
+
+  const previous = () => {
+    setActive((current) => (current === 0 ? lastIndex : current - 1));
+  };
+
+  const next = () => {
+    setActive((current) => (current === lastIndex ? 0 : current + 1));
+  };
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    const wrapper = wrapperRef.current;
-    const sticky = stickyRef.current;
-    const track = trackRef.current;
-    if (!wrapper || !sticky || !track) return;
-
-    let distance = 0;
-
-    const setHeights = () => {
-      distance = Math.max(0, track.scrollWidth - sticky.clientWidth);
-      wrapper.style.height = `${sticky.clientHeight + distance}px`;
-      ScrollTrigger.refresh();
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "ArrowLeft") previous();
+      if (event.key === "ArrowRight") next();
     };
 
-    setHeights();
-    window.addEventListener("resize", setHeights);
-
-    const trigger = ScrollTrigger.create({
-      trigger: wrapper,
-      start: "top top",
-      end: "bottom bottom",
-      scrub: true,
-      onUpdate: (self) => {
-        track.style.transform = `translateX(-${self.progress * distance}px)`;
-        setActive(
-          Math.round(self.progress * (PORTFOLIO_ITEMS.length - 1))
-        );
-
-        // the sketch/finished swap for "Do Traço à Obra" is driven by how
-        // far the visitor has swiped past that card, not by a timer — it
-        // stays on the sketch through the card's arrival and only swaps to
-        // the finished shot once they scroll past it toward the next one
-        if (traceOverlayRef.current && TRACE_INDEX >= 0) {
-          const localProgress =
-            self.progress * (PORTFOLIO_ITEMS.length - 1) - TRACE_INDEX;
-          const opacity = gsap.utils.clamp(
-            0,
-            1,
-            1 - (localProgress - 0.05) / 0.35
-          );
-          traceOverlayRef.current.style.opacity = String(opacity);
-        }
-      },
-    });
-
-    return () => {
-      trigger.kill();
-      window.removeEventListener("resize", setHeights);
-    };
-  }, []);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  });
 
   return (
-    <section id="portfolio" className="bg-background pb-8 pt-24 sm:pb-12 sm:pt-32">
+    <section
+      id="portfolio"
+      className="relative overflow-hidden bg-background pb-12 pt-24 sm:pb-16 sm:pt-32"
+    >
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionLabel className="text-sm sm:text-base">Portfólio</SectionLabel>
       </div>
 
-      <div ref={wrapperRef} className="relative mt-10 sm:mt-12">
-        <div
-          ref={stickyRef}
-          className="sticky top-0 flex h-[100dvh] w-full flex-col justify-center overflow-hidden"
-        >
-          <div
-            ref={trackRef}
-            className="flex items-center gap-5 pl-5 will-change-transform sm:gap-8 sm:pl-8"
-          >
-            {PORTFOLIO_ITEMS.map((item) => (
-              <div
+      <div className="relative mt-8 h-[82dvh] min-h-[620px] w-full sm:mt-10">
+        <div className="relative h-full w-full">
+          {PORTFOLIO_ITEMS.map((item, index) => {
+            const isActive = index === active;
+            let distance = index - active;
+
+            if (distance > PORTFOLIO_ITEMS.length / 2) {
+              distance -= PORTFOLIO_ITEMS.length;
+            }
+            if (distance < -PORTFOLIO_ITEMS.length / 2) {
+              distance += PORTFOLIO_ITEMS.length;
+            }
+
+            const isNeighbor = Math.abs(distance) === 1;
+            const isVisible = isActive || isNeighbor;
+            const translate = distance * 45;
+            const scale = isActive ? 1 : 0.72;
+
+            return (
+              <article
                 key={item.slug}
-                className="flex h-[80vh] w-[78vw] shrink-0 flex-col gap-5 sm:h-[85vh] sm:w-[420px] lg:h-[65vh]"
+                className="absolute left-1/2 top-[42%] flex h-[56dvh] w-[72vw] max-w-[500px] -translate-y-1/2 items-center justify-center transition-[transform,opacity,filter] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform motion-reduce:transition-none sm:h-[58dvh] sm:w-[44vw]"
+                aria-hidden={!isActive}
+                style={{
+                  transform: `translateX(calc(-50% + ${translate}vw)) translateY(-50%) scale(${scale})`,
+                  opacity: isActive ? 1 : isNeighbor ? 0.48 : 0,
+                  filter: isActive ? "brightness(1)" : "brightness(0.58)",
+                  zIndex: isActive ? 20 : isNeighbor ? 10 : 0,
+                  pointerEvents: isVisible ? "auto" : "none",
+                }}
               >
-                <div className="relative flex-1 overflow-hidden rounded-[var(--radius-xl)] border border-border">
+                <div
+                  className="relative h-full w-full origin-center overflow-hidden rounded-[var(--radius-xl)] border border-border shadow-[0_28px_80px_rgb(0_0_0/0.65)]"
+                >
                   {item.beforeImage ? (
                     <TraceReveal
-                      ref={traceOverlayRef}
                       before={item.beforeImage}
                       after={item.image}
                       alt={`${item.title} — ${item.category}`}
@@ -104,10 +85,20 @@ export function Portfolio() {
                       src={item.image}
                       alt={`${item.title} — ${item.category}`}
                       className="h-full w-full"
+                      priority={index === 0}
+                      fit="contain"
                     />
                   )}
                 </div>
-                <div className="flex flex-col gap-2 px-1">
+
+                <div
+                  className={cn(
+                    "pointer-events-none absolute -bottom-24 z-20 flex w-full flex-col gap-2 px-1 text-center transition-all duration-500 [text-shadow:0_2px_16px_rgb(0_0_0/0.95)]",
+                    isActive
+                      ? "translate-y-0 opacity-100"
+                      : "translate-y-3 opacity-0"
+                  )}
+                >
                   <span className="font-mono text-xs uppercase tracking-[0.3em] text-orange-400">
                     {item.index} / {item.category}
                   </span>
@@ -115,22 +106,49 @@ export function Portfolio() {
                     {item.title}
                   </h3>
                 </div>
-              </div>
-            ))}
-            <div className="w-5 shrink-0 sm:w-8" aria-hidden />
-          </div>
+              </article>
+            );
+          })}
+        </div>
 
-          <div className="pointer-events-none absolute inset-x-0 bottom-8 flex justify-center gap-2">
-            {PORTFOLIO_ITEMS.map((item, i) => (
+        <button
+          type="button"
+          onClick={previous}
+          aria-label="Ver tatuagem anterior"
+          title="Anterior"
+          className="portfolio-arrow portfolio-arrow-previous glass absolute top-[42%] z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full text-foreground transition-colors hover:border-gold/50 hover:text-orange-400 sm:h-14 sm:w-14"
+        >
+          <ChevronLeft className="h-6 w-6" strokeWidth={1.5} />
+        </button>
+
+        <button
+          type="button"
+          onClick={next}
+          aria-label="Ver próxima tatuagem"
+          title="Próxima"
+          className="portfolio-arrow portfolio-arrow-next glass absolute top-[42%] z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full text-foreground transition-colors hover:border-gold/50 hover:text-orange-400 sm:h-14 sm:w-14"
+        >
+          <ChevronRight className="h-6 w-6" strokeWidth={1.5} />
+        </button>
+
+        <div className="absolute inset-x-0 bottom-1 z-30 flex justify-center gap-2">
+          {PORTFOLIO_ITEMS.map((item, index) => (
+            <button
+              key={item.slug}
+              type="button"
+              onClick={() => setActive(index)}
+              aria-label={`Ver ${item.title}`}
+              aria-current={index === active ? "true" : undefined}
+              className="flex h-8 items-center justify-center"
+            >
               <span
-                key={item.slug}
                 className={cn(
-                  "h-1.5 rounded-full transition-all duration-300",
-                  i === active ? "w-6 bg-gold" : "w-1.5 bg-border"
+                  "block h-1.5 rounded-full transition-all duration-300",
+                  index === active ? "w-6 bg-gold" : "w-1.5 bg-border"
                 )}
               />
-            ))}
-          </div>
+            </button>
+          ))}
         </div>
       </div>
     </section>

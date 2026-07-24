@@ -18,7 +18,7 @@ export function Footer() {
         <div className="flex flex-col justify-between gap-10 sm:flex-row sm:items-end">
           <div>
             <Logo showArtist />
-            <p className="mt-5 max-w-xs text-sm italic text-muted">
+            <p className="mt-5 max-w-xs text-sm italic text-white/85">
               Sua história. Minha arte.
             </p>
           </div>
@@ -28,7 +28,7 @@ export function Footer() {
               <a
                 key={link.href}
                 href={link.href}
-                className="font-mono text-xs uppercase tracking-[0.2em] text-muted transition-colors hover:text-orange-400"
+                className="font-mono text-xs uppercase tracking-[0.2em] text-white transition-colors hover:text-orange-400"
               >
                 {link.label}
               </a>
@@ -37,7 +37,7 @@ export function Footer() {
               href={SITE.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.2em] text-orange-400 transition-colors hover:text-orange-300"
+              className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.2em] text-orange-500 transition-colors hover:text-orange-300"
             >
               <InstagramIcon className="h-3.5 w-3.5" strokeWidth={1.5} />
               Instagram
@@ -46,7 +46,7 @@ export function Footer() {
               href={WHATSAPP_DEFAULT_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-xs uppercase tracking-[0.2em] text-orange-400 transition-colors hover:text-orange-300"
+              className="font-mono text-xs uppercase tracking-[0.2em] text-orange-500 transition-colors hover:text-orange-300"
             >
               WhatsApp
             </a>
@@ -54,15 +54,15 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-start gap-2 text-sm text-muted">
-            <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold/70" strokeWidth={1.5} />
+          <div className="flex items-start gap-2 text-sm text-white/90">
+            <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-orange-500" strokeWidth={1.5} />
             <span>{SITE.address}</span>
           </div>
           <a
             href={SITE.mapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-mono text-xs uppercase tracking-[0.2em] text-orange-400 transition-colors hover:text-orange-300"
+            className="font-mono text-xs uppercase tracking-[0.2em] text-orange-500 transition-colors hover:text-orange-300"
           >
             Ver no Google Maps
           </a>
@@ -70,7 +70,7 @@ export function Footer() {
 
         <div className="hairline" />
 
-        <p className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-muted/70">
+        <p className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-white/65">
           © {year} Flow Tattoo — Diego Mesquita. Todos os direitos reservados.
         </p>
       </div>

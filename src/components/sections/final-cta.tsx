@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { RevealText } from "@/components/ui/reveal-text";
-import { SectionLabel } from "@/components/ui/section-label";
 import { GlassButton } from "@/components/ui/glass-button";
 import { WHATSAPP_DEFAULT_LINK } from "@/lib/whatsapp";
 
@@ -29,15 +28,13 @@ export function FinalCta() {
       />
 
       <div className="relative mx-auto flex max-w-3xl flex-col items-center px-5 text-center sm:px-8">
-        <SectionLabel>Vamos conversar</SectionLabel>
-
         <RevealText
           text="Sua próxima obra começa com uma conversa."
           as="h2"
-          className="mt-5 justify-center font-display text-4xl italic leading-[1.05] text-foreground text-balance sm:text-6xl"
+          className="mt-5 justify-center font-display text-4xl italic leading-[1.05] text-orange-400 text-balance sm:text-6xl"
         />
 
-        <p className="mt-6 max-w-md text-balance leading-relaxed text-muted">
+        <p className="mt-6 max-w-md text-balance font-medium leading-relaxed text-white">
           Envie sua ideia, referências e o local do corpo — o orçamento é
           personalizado e a resposta chega direto no seu WhatsApp.
         </p>

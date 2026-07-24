@@ -33,7 +33,7 @@ export function Header() {
         )}
       >
         <a href="#top" aria-label="FLOW TATTOO — início">
-          <Logo />
+          <Logo official />
         </a>
 
         <nav className="hidden items-center gap-9 md:flex">
@@ -84,7 +84,7 @@ export function Header() {
             className="glass-strong fixed inset-0 z-50 flex flex-col px-6 pt-6 md:hidden"
           >
             <div className="flex items-center justify-between">
-              <Logo />
+              <Logo official />
               <button
                 type="button"
                 onClick={() => setOpen(false)}
